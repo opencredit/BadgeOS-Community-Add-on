@@ -32,9 +32,9 @@ function badgeos_award_achievement_bp_activity( $user_id, $achievement_id ){
 	$post_type_singular_name = strtolower( get_post_type_object( $type )->labels->singular_name );
 
 	// Setup our entry content
-	$content = '<div id="badgeos-achievements-list-item-' . $achievement_id . '" class="badgeos-achievements-list-item">';
-	$content .= '<div class="badgeos-item-image"><a href="'.get_permalink( $achievement_id ).'">' . badgeos_get_achievement_post_thumbnail( $achievement_id ) . '</a></div>';
-	$content .= '<div class="badgeos-item-description">' . $post->post_excerpt . '</div>';
+	$content = '<div class="badgeos-achievements-list-item">';
+	$content .= '<div class="badgeos-item-image"><a href="'. get_permalink( $achievement_id ) . '">' . badgeos_get_achievement_post_thumbnail( $achievement_id ) . '</a></div>';
+	$content .= '<div class="badgeos-item-description">' . wpautop( $post->post_excerpt ) . '</div>';
 	$content .= '</div>';
 
 	// Insert the activity
