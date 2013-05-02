@@ -77,6 +77,10 @@ class BadgeOS_Community {
 				'groups_demoted_member'            => __( 'Demote another Group Member from Moderator/Administrator', 'badgeos-community' ),
 				'groups_banned_member'             => __( 'Ban another Group Member from a Group', 'badgeos-community' ),
 				'groups_unbanned_member'           => __( 'Un-ban another Group Member from a Group', 'badgeos-community' ),
+			),
+			__( 'Discussion Forum Actions', 'badgeos-community' ) => array(
+				'bbp_new_topic'                    => __( 'Create a Forum Topic', 'badgeos-community' ),
+				'bbp_new_reply'                    => __( 'Reply to a Forum Topic', 'badgeos-community' ),
 			)
 		);
 	}
