@@ -22,6 +22,10 @@ function badgeos_award_achievement_bp_activity( $user_id, $achievement_id ){
 	$post = get_post($achievement_id);
 	$type = $post->post_type;
 
+	// Don't make activity posts for step post type
+	if( 'step' == $type )
+		return false;
+
 	// Check if option is on/off
 	$achievement_type = get_page_by_title( $type, 'OBJECT', 'achievement-type' );
 	$can_bp_activity = get_post_meta( $achievement_type->ID, '_badgeos_create_bp_activty', true );
