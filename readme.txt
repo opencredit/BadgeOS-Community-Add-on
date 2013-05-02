@@ -155,7 +155,7 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 2. A wide range of BuddyPress and bbPress actions can be selected as required steps towards the completion of any BadgeOS achievement type.
 
-3. Combine BadgeOS Community Add-On actions with any other BadgeOS assesment requirements to customize the required steps for any badge or achievement.
+3. Combine BadgeOS Community Add-On actions with any other BadgeOS assessment requirements to customize the required steps for any badge or achievement.
 
 4. Display select or all earned achievements and badges on the BuddyPress Activity Stream and User Profiles.
 
