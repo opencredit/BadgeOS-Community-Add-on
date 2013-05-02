@@ -151,15 +151,15 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 == Screenshots ==
 
-1. Example of multiple methods for awarding and defining achievements
+1. "Community Activity" joins multiple other BadgeOS methods for awarding and defining achievements.
 
-2. Use BadgeOS to create an unlimited number of achievement types, and easily define how they relate to one another.
+2. A wide range of BuddyPress and bbPress actions can be selected as required steps towards the completion of any BadgeOS achievement type.
 
-3. Earned badges on your BadgeOS site are "Open Badges" that are sharable via Credly to virtually any social network, site, blog or the Mozilla Backpack.
+3. Combine BadgeOS Community Add-On actions with any other BadgeOS assesment requirements to customize the required steps for any badge or achievement.
 
-4. BadgeOS gives you a simple yet powerful admin interface for defining the "Required Steps" for any badge or achievement.
+4. Display select or all earned achievements and badges on the BuddyPress Activity Stream and User Profiles.
 
-5. BadgeOS shortcodes make it easy to turn any WordPress page into an achievements page, regardless of the theme you are using.
+5. Earned badges on your BadgeOS Community site are "Open Badges" that are sharable via Credly to virtually any social network, site, blog or the Mozilla Backpack.
 
 
 == Changelog ==
