@@ -195,3 +195,17 @@ class BadgeOS_Community_Members extends BP_Component {
 	}
 
 }
+
+/**
+ * Override the achievement earners list to use BP details
+ *
+ * @since  1.0.0
+ * @param  string $user_content The list item output for the given user
+ * @param  integer $user_id     The given user's ID
+ * @return string               The updated user output
+ */
+function badgeos_bp_achievement_earner( $user_content, $user_id ) {
+	$user = new BP_Core_User( $user_id );
+	return '<li><a href="' .  $user->user_url . '">' . $user->avatar_mini . '</a></li>';
+}
+add_filter( 'badgeos_get_achievement_earners_list_user', 'badgeos_bp_achievement_earner', 10, 2 );
