@@ -22,28 +22,30 @@ function badgeos_award_achievement_bp_activity( $user_id, $achievement_id ){
 	$post = get_post($achievement_id);
 	$type = $post->post_type;
 
-	//check if option is on/off
+	// Check if option is on/off
 	$achievement_type = get_page_by_title( $type, 'OBJECT', 'achievement-type' );
 	$can_bp_activity = get_post_meta( $achievement_type->ID, '_badgeos_create_bp_activty', true );
 	if( $can_bp_activity )
 		return false;
 
-	$post_type_singular_name = strtolower(get_post_type_object( $type )->labels->singular_name);
-	$title = $post->post_title;
+	// Grab the singular name for our achievement type
+	$post_type_singular_name = strtolower( get_post_type_object( $type )->labels->singular_name );
+
+	// Setup our entry content
 	$content = '<div id="badgeos-achievements-list-item-' . $achievement_id . '" class="badgeos-achievements-list-item">';
 	$content .= '<div class="badgeos-item-image"><a href="'.get_permalink( $achievement_id ).'">' . badgeos_get_achievement_post_thumbnail( $achievement_id ) . '</a></div>';
 	$content .= '<div class="badgeos-item-description">' . $post->post_excerpt . '</div>';
 	$content .= '</div>';
-	$userlink = bp_core_get_userlink( $user_id );
 
-	bp_activity_add(array(
-		'action' => $userlink . ' ' . __( 'earned a', 'badgeos-community' ) . ' ' .$post_type_singular_name. ': <a href="'.get_permalink( $achievement_id ).'">' . $title . '</a>' ,
-		'content' => $content,
-		'component' => 'badgeos',
-		'type' => 'activity_update',
+	// Insert the activity
+	bp_activity_add( array(
+		'action'       => sprintf( __( '%1$s earned a %2$s: %3$s', 'badgeos-community' ), bp_core_get_userlink( $user_id ), $post_type_singular_name, '<a href="' . get_permalink( $achievement_id ) . '">' . $post->post_title . '</a>' ),
+		'content'      => $content,
+		'component'    => 'badgeos',
+		'type'         => 'activity_update',
 		'primary_link' => get_permalink( $achievement_id ),
-		'user_id' => $user_id
-	));
+		'user_id'      => $user_id
+	) );
 
 }
 add_action( 'badgeos_award_achievement', 'badgeos_award_achievement_bp_activity', 10, 2 );
@@ -87,16 +89,16 @@ function badgeos_bp_custom_metaboxes( array $meta_boxes ) {
 		'show_names' => true, // Show field names on the left
 		'fields'     => array(
 			array(
-				'name'    => __( 'Activity Posts', 'badgeos-community' ),
-				'desc' 	 => ' '.__( 'When a user earns any achievements of this type create an activity entry on their profile.', 'badgeos-community' ),
-				'id'      => $prefix . 'create_bp_activty',
-				'type'	 => 'checkbox',
+				'name' => __( 'Activity Posts', 'badgeos-community' ),
+				'desc' => ' '.__( 'When a user earns any achievements of this type create an activity entry on their profile.', 'badgeos-community' ),
+				'id'   => $prefix . 'create_bp_activty',
+				'type' => 'checkbox',
 			),
 			array(
-				'name'    => __( 'Profile Achievements', 'badgeos-community' ),
-				'desc' 	 => ' '.__( 'Display earned achievements of this type in the user profile "Achievements" section.', 'badgeos-community' ),
-				'id'      => $prefix . 'show_bp_member_menu',
-				'type'	 => 'checkbox',
+				'name' => __( 'Profile Achievements', 'badgeos-community' ),
+				'desc' => ' '.__( 'Display earned achievements of this type in the user profile "Achievements" section.', 'badgeos-community' ),
+				'id'   => $prefix . 'show_bp_member_menu',
+				'type' => 'checkbox',
 			),
 		)
 	);
@@ -104,4 +106,3 @@ function badgeos_bp_custom_metaboxes( array $meta_boxes ) {
 	return $meta_boxes;
 }
 add_filter( 'cmb_meta_boxes', 'badgeos_bp_custom_metaboxes' );
-
