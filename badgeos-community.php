@@ -44,6 +44,7 @@ class BadgeOS_Community {
 		// If BadgeOS is unavailable, deactivate our plugin
 		add_action( 'admin_notices', array( $this, 'maybe_disable_plugin' ) );
 		add_action( 'bp_include', array( $this, 'bp_include' ) );
+		add_action( 'wp_print_scripts', array( $this, 'enqueue_scripts' ) );
 
 		// BuddyPress Action Hooks
 		$this->community_triggers = array(
@@ -81,13 +82,29 @@ class BadgeOS_Community {
 	 *
 	 * @since 1.0.0
 	 */
-	function bp_include() {
+	public function bp_include() {
 		require_once( $this->directory_path . '/includes/rules-engine.php' );
 		require_once( $this->directory_path . '/includes/steps-ui.php' );
 		if ( bp_is_active( 'xprofile' ) )
 			require_once( $this->directory_path . '/includes/bp-members.php' );
 		if ( bp_is_active( 'activity' ) )
 			require_once( $this->directory_path . '/includes/bp-activity.php' );
+	}
+
+	/**
+	 * Enqueue custom scripts and styles
+	 *
+	 * @since 1.0.0
+	 */
+	public function enqueue_scripts() {
+
+		// Grab the global BuddyPress object
+		global $bp;
+
+		// If we're on a BP activity page
+		if ( isset( $bp->current_component ) && 'activity' == $bp->current_component ) {
+			wp_enqueue_style( 'badgeos-front' );
+		}
 	}
 
 	/**
