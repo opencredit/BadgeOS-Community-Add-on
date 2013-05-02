@@ -28,41 +28,45 @@ In addition to all of the out-of-the-box features in BadgeOS core, this add-on a
 
 *   **Profile Updates:**
 
-   *   update your profile information
-   *   upload an avatar to your profile
+   *   Activated Account
+   *   Change Profile Avatar
+   *   Update Profile information
 
 * **Social Actions:**
 
-   *   post an activity update
-   *   reply to an activity update
-   *   adds a friend
-   *   send a message
+   *   Write an Activity Stream message
+   *   Write a Group Activity Stream message
+   *   Reply to an item in an Activity Stream
+   *   Favorite an Activity Stream item
+   *   Send a Friendship Request
+   *   Accept a Friendship Request
+   *   Send/reply to a Private Message
 
 *   **Group Actions:**
 
-   *   join any group
-   *   join a specific group
-   *   post a group activity update
-   *   become a group moderator
+   *   Create a Group
+   *   Join a Group
+   *   Join a Specific Group
+   *   Invite Someone to Join a Group
+   *   Get Promoted to Group Moderator/Administrator
+   *   Promote another Group Member to Group Moderator/Administrator
 
 *   **Discussion Forum Actions:**
 
-   *   post a forum topic
-   *   reply to a forum topic
+   *   Add a New Forum Topic
+   *   Reply to a Forum Topic
 
 **Social Display of Badges and Achievements:**
 
 *   Display earned badges and achievements of any kind on user profiles
-*   Add activity updates to user Activity feed when badges and achievements are earned
+*   Add activity updates to user Activity Stream when badges and achievements are earned
 *   Each user may share his or her earned badges on social networks via Credly
 
 **User and BadgeOS Settings:**
 
-*   User can enable/disable Credly sharing settings via community profile
-*   BadgeOS admin can select which custom BadgeOS achievement types should
-be displayed on user profiles
-*   BadgeOS admin can select which custom BadgeOS achievement types should
-be displayed in Activity feeds
+*   BadgeOSadmin setting to select which custom BadgeOS achievement types should be displayed on user profiles
+*   BadgeOSadmin setting to select which custom BadgeOS achievement types should be displayed in Activity Streams
+*   User can adjust Credly sharing settings from community profile settings
 
 **Combine Community Steps with BadgeOS Steps in Defining Achievements**
 
