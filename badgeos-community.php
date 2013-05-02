@@ -1,0 +1,169 @@
+<?php
+/**
+ * Plugin Name: BadgeOS Community Add-On
+ * Plugin URI: http://www.learningtimes.com/
+ * Description: This BadgeOS add-on integrates BadgeOS features with BuddyPress and bbPress.
+ * Tags: buddypress
+ * Author: Credly
+ * Version: 1.0.0
+ * Author URI: https://credly.com/
+ * License: GNU AGPL
+ */
+
+/*
+ * Copyright © 2012-2013 Credly, LLC
+ *
+ * This program is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Affero General Public License, version 3,
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General
+ * Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>;.
+*/
+
+class BadgeOS_Community {
+
+	function __construct() {
+
+		// Define plugin constants
+		$this->basename       = plugin_basename( __FILE__ );
+		$this->directory_path = plugin_dir_path( __FILE__ );
+		$this->directory_url  = plugins_url( 'badgeos-community/' );
+
+		// Load translations
+		load_plugin_textdomain( 'badgeos-community', false, 'badge-plugin/languages' );
+
+		// Run our activation
+		register_activation_hook( __FILE__, array( $this, 'activate' ) );
+
+		// If BadgeOS is unavailable, deactivate our plugin
+		add_action( 'admin_notices', array( $this, 'maybe_disable_plugin' ) );
+		add_action( 'bp_include', array( $this, 'bp_include' ) );
+
+		// BuddyPress Action Hooks
+		$this->triggers = array(
+			'bp_core_activated_user'           => __( 'Activated Account', 'badgeos-community' ),
+			'bp_activity_posted_update'        => __( 'Write an Activity Stream message', 'badgeos-community' ),
+			'bp_groups_posted_update'          => __( 'Write a Group Activity Stream message', 'badgeos-community' ),
+			'bp_activity_comment_posted'       => __( 'Reply to an item in an Activity Stream', 'badgeos-community' ),
+			'bp_activity_add_user_favorite'    => __( 'Favorite an Activity Stream item', 'badgeos-community' ),
+			'bp_activity_remove_user_favorite' => __( 'Un-favorite an Activity Stream item', 'badgeos-community' ),
+			'friends_friendship_requested'     => __( 'Send a Friendship Request', 'badgeos-community' ),
+			'friends_friendship_accepted'      => __( 'Accept a Friendship Request', 'badgeos-community' ),
+			'friends_friendship_rejected'      => __( 'Reject a Friendship Request', 'badgeos-community' ),
+			'friends_friendship_deleted'       => __( 'Cancel a Friendship', 'badgeos-community' ),
+			'messages_message_sent'            => __( 'Send/Reply to a Private Message', 'badgeos-community' ),
+			'messages_delete_thread'           => __( 'Delete a Private Message', 'badgeos-community' ),
+			'xprofile_avatar_uploaded'         => __( 'Change Profile Avatar', 'badgeos-community' ),
+			'xprofile_updated_profile'         => __( 'Update Profile Information', 'badgeos-community' ),
+			'groups_group_create_complete'     => __( 'Create a Group', 'badgeos-community' ),
+			'groups_delete_group'              => __( 'Delete a Group', 'badgeos-community' ),
+			'groups_join_group'                => __( 'Join a Group', 'badgeos-community' ),
+			'groups_join_specific_group'       => __( 'Join a Specific Group', 'badgeos-community' ),
+			'groups_leave_group'               => __( 'Leave a Group', 'badgeos-community' ),
+			'groups_invite_user'               => __( 'Invite someone to Join a Group', 'badgeos-community' ),
+			'groups_promote_member'            => __( 'Promoted to Group Moderator/Administrator', 'badgeos-community' ),
+			'groups_promoted_member'           => __( 'Promote another Group Member to Moderator/Administrator', 'badgeos-community' ),
+			'groups_demoted_member'            => __( 'Demote another Group Member from Moderator/Administrator', 'badgeos-community' ),
+			'groups_banned_member'             => __( 'Ban another Group Member from a Group', 'badgeos-community' ),
+			'groups_unbanned_member'           => __( 'Un-ban another Group Member from a Group', 'badgeos-community' ),
+		);
+		add_filter( 'badgeos_activity_triggers', array( $this, 'add_community_triggers' ), 999 );
+	}
+
+	/**
+	 * Files to include with BuddyPress
+	 *
+	 * @since 1.0.0
+	 */
+	function bp_include() {
+		require_once( $this->directory_path . '/includes/rules-engine.php' );
+		if ( bp_is_active( 'xprofile' ) )
+			require_once( $this->directory_path . '/includes/bp-members.php' );
+		if ( bp_is_active( 'activity' ) )
+			require_once( $this->directory_path . '/includes/bp-activity.php' );
+	}
+
+	/**
+	 * Add our community triggers to the Steps UI trigger selector
+	 *
+	 * @since  1.0.0
+	 * @param  array $default_triggers The default/currently registered triggers
+	 * @return array                   Our updated triggers
+	 */
+	function add_community_triggers( $default_triggers ) {
+		$merged_triggers = array_merge( $default_triggers, $this->triggers );
+		return $merged_triggers;
+	}
+
+	/**
+	 * Activation hook for the plugin.
+	 *
+	 * @since 1.0.0
+	 */
+	public function activate() {
+
+		// If BadgeOS is available, run our activation functions
+		if ( $this->meets_requirements() ) {
+
+			//Add default BuddPress settings to each achievement type that may already exist.
+			$args=array(
+				'post_type' => 'achievement-type',
+			  	'post_status' => 'publish',
+			  	'posts_per_page' => -1
+			);
+			$query = new WP_Query($args);
+			if( $query->have_posts() ) {
+  				while ($query->have_posts()) : $query->the_post();
+ 	 				update_post_meta( get_the_ID(), '_badgeos_create_bp_activty', 'on' );
+ 	 				update_post_meta( get_the_ID(), '_badgeos_show_bp_member_menu', 'on' );
+ 	 			endwhile;
+			}
+
+		}
+
+	}
+
+	/**
+	 * Check if BadgeOS is available
+	 *
+	 * @since  1.0.0
+	 * @return bool True if BadgeOS is available, false otherwise
+	 */
+	public static function meets_requirements() {
+
+		if ( class_exists('BadgeOS') && class_exists('BuddyPress') )
+			return true;
+		else
+			return false;
+
+	}
+
+	/**
+	 * Generate a custom error message and deactivates the plugin if we don't meet requirements
+	 *
+	 * @since 1.0.0
+	 */
+	public function maybe_disable_plugin() {
+
+		if ( ! $this->meets_requirements() ) {
+			// Display our error
+			echo '<div id="message" class="error">';
+				if ( class_exists('BadgeOS') )
+					echo '<p>' . sprintf( __( 'BadgeOS Community Add-On requires BadgeOS and has been <a href="%s">deactivated</a>. Please install and activate BadgeOS and then reactivate this plugin.', 'badgeos-community' ), admin_url( 'plugins.php' ) ) . '</p>';
+				elseif ( class_exists('BuddyPress') )
+					echo '<p>' . sprintf( __( 'BadgeOS Community Add-On requires BuddyPress and has been <a href="%s">deactivated</a>. Please install and activate BuddyPress and then reactivate this plugin.', 'badgeos-community' ), admin_url( 'plugins.php' ) ) . '</p>';
+			echo '</div>';
+
+			// Deactivate our plugin
+			deactivate_plugins( $this->basename );
+		}
+	}
+
+}
+$GLOBALS['badgeos_community'] = new BadgeOS_Community();
