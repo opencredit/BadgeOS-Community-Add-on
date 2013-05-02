@@ -1,7 +1,97 @@
 <?php
 
 /**
- * Check if user deserves a specific-group-based step
+ * Load up our community triggers so we can add actions to them
+ *
+ * @since 1.0.0
+ */
+function badgeos_bp_load_community_triggers() {
+
+	// Grab our community triggers
+	$community_triggers = $GLOBALS['badgeos_community']->community_triggers;
+	if ( !empty( $community_triggers ) ) {
+		foreach ( $community_triggers as $optgroup_name => $triggers ) {
+			foreach ( $triggers as $trigger_hook => $trigger_name ) {
+				add_action( $trigger_hook, 'badgeos_bp_trigger_event', 10, 10 );
+			}
+		}
+	}
+
+}
+add_action( 'init', 'badgeos_bp_load_community_triggers' );
+
+/**
+ * Handle each of our community triggers
+ *
+ * @since 1.0.0
+ */
+function badgeos_bp_trigger_event() {
+
+	// Setup all our important variables
+	global $user_ID, $blog_id, $wpdb;
+	$user_data = get_user_by( 'id', $user_ID );
+
+	// Grab the current trigger
+	$this_trigger = current_filter();
+
+	// Update hook count for this user
+	$new_count = badgeos_update_user_trigger_count( $user_ID, $this_trigger, $blog_id );
+
+	// Mark the count in the log entry
+	badgeos_post_log_entry( null, $user_ID, null, "{$user_data->user_login} triggered $this_trigger ({$new_count}x)" );
+
+	// Now determine if any badges are earned based on this trigger event
+	$triggered_achievements = $wpdb->get_results( $wpdb->prepare(
+		"
+		SELECT post_id
+		FROM   $wpdb->postmeta
+		WHERE  meta_key = '_badgeos_community_trigger'
+		       AND meta_value = %s
+		",
+		$this_trigger
+	) );
+	foreach ( $triggered_achievements as $achievement ) {
+		badgeos_maybe_award_achievement_to_user( $achievement->post_id, $user_ID );
+	}
+}
+
+/**
+ * Check if user deserves a community trigger step
+ *
+ * @since  1.0.0
+ * @param  bool    $return         Whether or not the user deserves the step
+ * @param  integer $user_id        The given user's ID
+ * @param  integer $achievement_id The given achievement's post ID
+ * @return bool                    True if the user deserves the step, false otherwise
+ */
+function badgeos_bp_user_deserves_community_step( $return, $user_id, $achievement_id ) {
+
+	// If we're not dealing with a step, bail here
+	if ( 'step' != get_post_type( $achievement_id ) )
+		return;
+
+	// Grab our step requirements
+	$requirements = badgeos_get_step_requirements( $achievement_id );
+
+	// If the step is triggered by community actions...
+	if ( 'community_trigger' == $requirements['trigger_type'] ) {
+
+		// Grab the trigger count
+		$trigger_count = badgeos_get_user_trigger_count( $user_id, $step_requirements['community_trigger'] );
+
+		// If we meet or exceed the required number of checkins, they deserve the step
+		if ( $trigger_count >= $requirements['count'] )
+			$return = true;
+		else
+			$return = false;
+	}
+
+	return $return;
+}
+add_action( 'user_deserves_achievement', 'badgeos_bp_user_deserves_community_step', 15, 3 );
+
+/**
+ * Check if user deserves a "join a specific group" step
  *
  * @since  1.0.0
  * @param  bool    $return         Whether or not the user deserves the step
@@ -19,7 +109,7 @@ function badgeos_bp_user_deserves_group_step( $return, $user_id, $achievement_id
 	$requirements = badgeos_get_step_requirements( $achievement_id );
 
 	// If the step is triggered by joining a specific group
-	if ( 'groups_join_specific_group' == $requirements['trigger_type'] ) {
+	if ( 'groups_join_specific_group' == $requirements['community_trigger'] ) {
 		// And our user is a part of that group, return true
 		if ( groups_is_user_member( $user_id, $requirements['group_id'] ) )
 			$return = true;
@@ -31,95 +121,3 @@ function badgeos_bp_user_deserves_group_step( $return, $user_id, $achievement_id
 	return $return;
 }
 add_action( 'user_deserves_achievement', 'badgeos_bp_user_deserves_group_step', 15, 3 );
-
-/**
- * Add a BuddyPress group selector to the Steps UI
- *
- * @since 1.0.0
- * @param integer $step_id The given step's post ID
- * @param integer $post_id The given parent post's post ID
- */
-function badgeos_bp_step_group_select( $step_id, $post_id ) {
-
-	// Setup our select input
-	echo '<select name="group_id" class="select-group-id">';
-	echo '<option value="">' . __( 'Select a Group', '' ) . '</option>';
-
-	// Loop through all existing BP groups and include them here
-	$current_selection = get_post_meta( $step_id, '_badgeos_group_id', true );
-	$bp_groups = groups_get_groups( array( 'show_hidden' => true, 'per_page' => 300 ) );
-	if ( !empty( $bp_groups ) ) {
-		foreach ( $bp_groups['groups'] as $group ) {
-			echo '<option' . selected( $current_selection, $group->id, false ) . ' value="' . $group->id . '">' . $group->name . '</option>';
-		}
-	}
-
-	echo '</select>';
-
-}
-add_action( 'badgeos_steps_ui_html_after_trigger_type', 'badgeos_bp_step_group_select', 10, 2 );
-
-/**
- * AJAX Handler for saving all steps
- *
- * @since  1.0.0
- * @param  string  $title     The original title for our step
- * @param  integer $step_id   The given step's post ID
- * @param  array   $step_data Our array of all available step data
- * @return string             Our potentially updated step title
- */
-function badgeos_bp_save_step( $title, $step_id, $step_data ) {
-
-	// If we're working with an activity type of step...
-	if ( 'groups_join_specific_group' == $step_data['trigger_type'] ) {
-
-		// Grab our group ID
-		$group_id = isset( $step_data['group_id'] ) ? $step_data['group_id'] : 1;
-
-		// Store our group ID in meta
-		update_post_meta( $step_id, '_badgeos_group_id', $group_id );
-
-		// Pass along our custom post title
-		$title = sprintf( __( 'Join group "%s"', 'mvp' ), bp_get_group_name( groups_get_group( array( 'group_id' => $group_id ) ) ) );
-	}
-
-	// Send back our custom title
-	return $title;
-}
-add_filter( 'badgeos_save_step', 'badgeos_bp_save_step', 10, 3 );
-
-/**
- * Include custom JS for the BadgeOS Steps UI
- *
- * @since 1.0.0
- */
-function badgeos_bp_step_js() { ?>
-	<script type="text/javascript">
-	jQuery(document).ready(function($) {
-
-		// Listen for our change to our trigger type selector
-		$( document ).on( 'change', '.select-trigger-type', function() {
-
-			var trigger_type = $(this);
-
-			// Show our group selector if we're awarding based on a specific group
-			if ( 'groups_join_specific_group' == trigger_type.val() ) {
-				trigger_type.siblings('.select-group-id').show();
-			} else {
-				trigger_type.siblings('.select-group-id').hide();
-			}
-
-		});
-
-		// Trigger a change so we properly show/hide our group id selector on page load
-		$('.select-trigger-type').change();
-
-		// Inject our custom step details into the update step action
-		$(document).on( 'update_step_data', function( event, step_details, step ) {
-			step_details.group_id = step.children('.select-group-id').val();
-		});
-
-	});
-	</script>
-<?php }
-add_action( 'admin_footer', 'badgeos_bp_step_js' );
