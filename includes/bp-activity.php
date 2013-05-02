@@ -1,4 +1,13 @@
 <?php
+/**
+ * BuddyPress Activity Functions
+ *
+ * @package BadgeOS Community
+ * @subpackage Activity
+ * @author Credly, LLC
+ * @license http://www.gnu.org/licenses/agpl.txt GNU AGPL v3.0
+ * @link https://credly.com
+ */
 
 /**
  * Create BuddyPress Activity when a user earns an achievement.
@@ -6,11 +15,11 @@
  * @since 1.0.0
  */
 function badgeos_award_achievement_bp_activity( $user_id, $achievement_id ){
-	
+
 	if( !$user_id || !$achievement_id )
 		return false;
 
-	$post = get_post($achievement_id); 
+	$post = get_post($achievement_id);
 	$type = $post->post_type;
 
 	//check if option is on/off
@@ -26,7 +35,7 @@ function badgeos_award_achievement_bp_activity( $user_id, $achievement_id ){
 	$content .= '<div class="badgeos-item-description">' . $post->post_excerpt . '</div>';
 	$content .= '</div>';
 	$userlink = bp_core_get_userlink( $user_id );
-	
+
 	bp_activity_add(array(
 		'action' => $userlink . ' ' . __( 'earned a', 'badgeos-community' ) . ' ' .$post_type_singular_name. ': <a href="'.get_permalink( $achievement_id ).'">' . $title . '</a>' ,
 		'content' => $content,

@@ -1,4 +1,13 @@
 <?php
+/**
+ * Custom Achievement Steps UI
+ *
+ * @package BadgeOS Community
+ * @subpackage Achievements
+ * @author Credly, LLC
+ * @license http://www.gnu.org/licenses/agpl.txt GNU AGPL v3.0
+ * @link https://credly.com
+ */
 
 /**
  * Update badgeos_get_step_requirements to include our custom requirements

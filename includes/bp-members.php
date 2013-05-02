@@ -1,5 +1,15 @@
 <?php
 /**
+ * BuddyPress Membership Functions
+ *
+ * @package BadgeOS Community
+ * @subpackage Members
+ * @author Credly, LLC
+ * @license http://www.gnu.org/licenses/agpl.txt GNU AGPL v3.0
+ * @link https://credly.com
+ */
+
+/**
  * Creates a BuddyPress member page for BadgeOS
  *
  *
@@ -12,13 +22,13 @@ function bagdeos_bp_member_achievements() {
 
 /**
  * Displays a members achievements
- * 
+ *
  *
  * @since 1.0
  */
 function bagdeos_bp_member_achievements_content() {
 	global $bp;
-	
+
 	$achievement_types = badgeos_get_user_earned_achievement_types( bp_displayed_user_id() );
 	if ( is_array( $achievement_types ) ) {
 		foreach( $achievement_types as $achievement_type){
@@ -55,7 +65,7 @@ function badgeos_community_loader() {
 		return;
 
 	$GLOBALS['badgeos_community_members'] = new BadgeOS_Community_Members();
-	
+
 }
 add_action( 'bp_init', 'badgeos_community_loader', 1 );
 
@@ -68,7 +78,7 @@ add_action( 'bp_init', 'badgeos_community_loader', 1 );
 function badgeos_bp_core_general_settings_before_submit(){
 	$credly_user_enable = get_user_meta( bp_displayed_user_id(), 'credly_user_enable', true );?>
 	<label for="credly"><?php _e( 'Badge Sharing', 'badgeos-community' ); ?></label>
-	<input type="checkbox" value="true" <?php checked( $credly_user_enable, 'true' ); ?> name="credly_user_enable"> 
+	<input type="checkbox" value="true" <?php checked( $credly_user_enable, 'true' ); ?> name="credly_user_enable">
 	<?php echo _e('Send eligible earned badges to Credly','badgeos-community');
 }
 add_action('bp_core_general_settings_before_submit','badgeos_bp_core_general_settings_before_submit');
@@ -127,7 +137,7 @@ class BadgeOS_Community_Members extends BP_Component {
 			return;
 
 		$parent_url = trailingslashit( bp_displayed_user_domain() . $this->slug );
-		
+
 		//loop existing achievement types to build array of array( 'slug' => 'ID' )
 		//TODO: update global $badgeos->achievement_types to include the post_id of each slug
 		$args=array(
@@ -137,25 +147,25 @@ class BadgeOS_Community_Members extends BP_Component {
 		);
 		$query = new WP_Query($args);
 		if( $query->have_posts() ) {
-  			while ($query->have_posts()) : $query->the_post(); 
- 	 			$arr_achivement_types[$query->post->post_name] = $query->post->ID; 
+  			while ($query->have_posts()) : $query->the_post();
+ 	 			$arr_achivement_types[$query->post->post_name] = $query->post->ID;
  	 		endwhile;
 		}
-		
+
 		//loop achievement types current user has earned
 		$achievement_types = badgeos_get_user_earned_achievement_types( bp_displayed_user_id() );
 		foreach( $achievement_types as $achievement_type){
-		 	
+
 		 	$name = get_post_type_object( $achievement_type )->labels->name;
 			$slug = str_replace(' ', '-', strtolower( $name ) );
 			//Get post_id of earned achievement type slug
 			$post_id = $arr_achivement_types[$achievement_type];
 			if( $post_id ) {
-				
+
 				//check if this achievement type can be shown on the member profile page
 				$can_bp_member_menu = get_post_meta( $post_id, '_badgeos_show_bp_member_menu', true );
 				if ( $slug && $can_bp_member_menu ) {
-					
+
 					//only run once to set main nav and defautl sub nav
 					if( !$main ){
 						//Add to the main navigation

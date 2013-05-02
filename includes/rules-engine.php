@@ -1,4 +1,13 @@
 <?php
+/**
+ * Custom Achievement Rules
+ *
+ * @package BadgeOS Community
+ * @subpackage Achievements
+ * @author Credly, LLC
+ * @license http://www.gnu.org/licenses/agpl.txt GNU AGPL v3.0
+ * @link https://credly.com
+ */
 
 /**
  * Load up our community triggers so we can add actions to them
