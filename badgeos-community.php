@@ -5,7 +5,7 @@
  * Description: This BadgeOS add-on integrates BadgeOS features with BuddyPress and bbPress.
  * Tags: buddypress
  * Author: Credly
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author URI: https://credly.com/
  * License: GNU AGPL
  */
@@ -83,12 +83,15 @@ class BadgeOS_Community {
 	 * @since 1.0.0
 	 */
 	public function bp_include() {
-		require_once( $this->directory_path . '/includes/rules-engine.php' );
-		require_once( $this->directory_path . '/includes/steps-ui.php' );
-		if ( bp_is_active( 'xprofile' ) )
-			require_once( $this->directory_path . '/includes/bp-members.php' );
-		if ( bp_is_active( 'activity' ) )
-			require_once( $this->directory_path . '/includes/bp-activity.php' );
+
+		if ( $this->meets_requirements() ) {
+			require_once( $this->directory_path . '/includes/rules-engine.php' );
+			require_once( $this->directory_path . '/includes/steps-ui.php' );
+			if ( bp_is_active( 'xprofile' ) )
+				require_once( $this->directory_path . '/includes/bp-members.php' );
+			if ( bp_is_active( 'activity' ) )
+				require_once( $this->directory_path . '/includes/bp-activity.php' );
+		}
 	}
 
 	/**
@@ -143,7 +146,7 @@ class BadgeOS_Community {
 	 */
 	public static function meets_requirements() {
 
-		if ( class_exists('BadgeOS') && class_exists('BuddyPress') )
+		if ( class_exists('BadgeOS') && function_exists('badgeos_get_user_earned_achievement_types') && class_exists('BuddyPress') )
 			return true;
 		else
 			return false;
@@ -160,9 +163,9 @@ class BadgeOS_Community {
 		if ( ! $this->meets_requirements() ) {
 			// Display our error
 			echo '<div id="message" class="error">';
-				if ( class_exists('BadgeOS') )
+				if ( !class_exists('BadgeOS') || !function_exists('badgeos_get_user_earned_achievement_types') )
 					echo '<p>' . sprintf( __( 'BadgeOS Community Add-On requires BadgeOS and has been <a href="%s">deactivated</a>. Please install and activate BadgeOS and then reactivate this plugin.', 'badgeos-community' ), admin_url( 'plugins.php' ) ) . '</p>';
-				elseif ( class_exists('BuddyPress') )
+				elseif ( !class_exists('BuddyPress') )
 					echo '<p>' . sprintf( __( 'BadgeOS Community Add-On requires BuddyPress and has been <a href="%s">deactivated</a>. Please install and activate BuddyPress and then reactivate this plugin.', 'badgeos-community' ), admin_url( 'plugins.php' ) ) . '</p>';
 			echo '</div>';
 

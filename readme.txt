@@ -1,10 +1,10 @@
 === BadgeOS Community Add-on ===
 Contributors: credly, webdevstudios, Messenlehner, rzen, williamsba1, LisaSabinWilson
 Donate link: http://badgeos.org/contribute/donate/
-Tags: badge, badges, openbadges, credly, OBI, mozilla, open badges, achievement, award, reward, engagement, submission, nomination, buddypress, community, API, open credit, credit
+Tags: badge, badges, openbadges, credly, OBI, mozilla, open badges, achievement, award, reward, engagement, submission, nomination, buddypress, community, API, open credit, credit, bbpress, plugin
 Requires at least: WordPress 3.5, BuddyPress 1.7 & BadgeOS 1.0.2
 Tested up to: 3.5.1
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GNU AGPLv3
 License URI: http://www.gnu.org/licenses/agpl-3.0.html
 
@@ -163,6 +163,9 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 
 == Changelog ==
+
+= 1.0.1 =
+* Updated: Check for BadgeOS version 1.0.2 or higher before activating plugin.
 
 = 1.0 =
 * BadgeOS Community Add-on says "hello buddy", earns "Hello Buddy" badge.
