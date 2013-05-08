@@ -86,7 +86,7 @@ function badgeos_bp_user_deserves_community_step( $return, $user_id, $achievemen
 	if ( 'community_trigger' == $requirements['trigger_type'] ) {
 
 		// Grab the trigger count
-		$trigger_count = badgeos_get_user_trigger_count( $user_id, $step_requirements['community_trigger'] );
+		$trigger_count = badgeos_get_user_trigger_count( $user_id, $requirements['community_trigger'] );
 
 		// If we meet or exceed the required number of checkins, they deserve the step
 		if ( $trigger_count >= $requirements['count'] )

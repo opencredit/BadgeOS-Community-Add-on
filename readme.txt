@@ -12,7 +12,7 @@ Adds BadgeOS features to BuddyPress and bbPress. Earn badges based on community 
 
 == Description ==
 
-The "BadgeOS Community Add-on" integrates BadgeOS features into BuddyPress and bbPress. Site members complete achievements and earn badges based on a range of community activity and triggers. This add-on to BadgeOS also includes the ability to display badges and achievements on user profiles and activity feeds. 
+The "BadgeOS Community Add-on" integrates BadgeOS features into BuddyPress and bbPress. Site members complete achievements and earn badges based on a range of community activity and triggers. This add-on to BadgeOS also includes the ability to display badges and achievements on user profiles and activity feeds.
 
 **Note:** You will need to install the free [BadgeOS plugin](http://wordpress.org/extend/plugins/badgeos/ "BadgeOS")&trade; (version 1.0.2 or higher) to use the BadgeOS Community Add-on. You will also need the [BuddyPress plugin](http://wordpress.org/extend/plugins/buddypress/ "BadgeOS") v1.7 or higher installed.
 
@@ -78,20 +78,20 @@ In addition to all of the out-of-the-box features in BadgeOS core, this add-on a
 
 *   As with the BadgeOS core plugin, community badges are Mozilla Open Badge (OBI) compatible through integration of the "Open Credit" API by [Credly](https://credly.com/ "Credly.com"), the free web service for issuing, earning and sharing badges.
 *   Badges you create in BadgeOS automatically appear and update on Credly
-*   Use Credly iOS app to issue community badges you created on your WordPress/BuddyPress/BadgeOS site. 
+*   Use Credly iOS app to issue community badges you created on your WordPress/BuddyPress/BadgeOS site.
 *   As badges are earned on WordPress/BuddyPress, they can be automatically sent to Credly for easy sharing on Facebook, LinkedIn, Twitter, Mozilla Backpack, the earner's own web site, blog, or Credly profile.
 
 = Theme Agnostic =
 
-* BadgeOS Community Add-on works with just about any standard WordPress theme using BuddyPress v1.7+ 
-* No special hooks or theme updates are needed. 
+* BadgeOS Community Add-on works with just about any standard WordPress theme using BuddyPress v1.7+
+* No special hooks or theme updates are needed.
 
 
 = Extensibility and Additional BadgeOS Add-ons =
 
-* BadgeOS is designed to be a true operating system for turning any WordPress site into an engagement management application. 
-* Built with expandability in mind to allow virtually anything to trigger and recognize achievement. 
-* BadgeOS plans to continue to release a range of Add-Ons to the plugin -- like the BadgeOS Community Add-on -- that enhance core functionality with specialized functions. 
+* BadgeOS is designed to be a true operating system for turning any WordPress site into an engagement management application.
+* Built with expandability in mind to allow virtually anything to trigger and recognize achievement.
+* BadgeOS plans to continue to release a range of Add-Ons to the plugin -- like the BadgeOS Community Add-on -- that enhance core functionality with specialized functions.
 * Check out some of the [BadgeOS customizations](http://badgeos.org/services/badgeos-customization/ "We'll help you customize your BadgeOS site") we've already implemented to get a sense for what you might expect.
 
 
@@ -100,7 +100,7 @@ In addition to all of the out-of-the-box features in BadgeOS core, this add-on a
 BadgeOS is made available by [Credly, LLC](https://credly.com/ "Credly web site"). Here are some ways to stay connected and to see what else we are up to:
 
 * [BadgeOS.org](http://badgeos.org/ "BadgeOS web site") - Contact Us, Video Tutorials, Examples, News
-* [Credly.com](https://credly.com/ "Credly web site") - Recognize, manage and share lifelong achievement 
+* [Credly.com](https://credly.com/ "Credly web site") - Recognize, manage and share lifelong achievement
 * [Credly Knowledgebase](http://support.credly.com/ "Credly FAQ and Support") - Credly FAQ
 * [Facebook](https://www.facebook.com/Credly "Credly on Facebook") - Credly on Facebook
 * [Twitter](https://twitter.com/credly "Credly on Facebook") - Credly Tweets
@@ -166,6 +166,7 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 = 1.0.1 =
 * Updated: Check for BadgeOS version 1.0.2 or higher before activating plugin.
+* Fix: Stomped out a bug that prevented certain community triggers from unlocking steps
 
 = 1.0 =
 * BadgeOS Community Add-on says "hello buddy", earns "Hello Buddy" badge.
