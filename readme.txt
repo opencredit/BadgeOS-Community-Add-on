@@ -165,6 +165,7 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 == Changelog ==
 
 = 1.0.1 =
+* New: Added .po and .mo files for internationalization
 * Updated: Check for BadgeOS version 1.0.2 or higher before activating plugin.
 * Fix: Stomped out a bug that prevented certain community triggers from unlocking steps
 
