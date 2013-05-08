@@ -153,10 +153,11 @@ class BadgeOS_Community_Members extends BP_Component {
 		$achievement_types = badgeos_get_user_earned_achievement_types( bp_displayed_user_id() );
 		foreach( $achievement_types as $achievement_type){
 
-		 	$name = get_post_type_object( $achievement_type )->labels->name;
+			$achievement_object = get_post_type_object( $achievement_type );
+		 	$name = is_object( $achievement_object ) ? $achievement_object->labels->name : '';
 			$slug = str_replace(' ', '-', strtolower( $name ) );
 			// Get post_id of earned achievement type slug
-			$post_id = $arr_achivement_types[$achievement_type];
+			$post_id = isset( $arr_achivement_types[$achievement_type] ) ? $arr_achivement_types[$achievement_type] : 0;
 			if( $post_id ) {
 
 				//check if this achievement type can be shown on the member profile page
@@ -164,7 +165,7 @@ class BadgeOS_Community_Members extends BP_Component {
 				if ( $slug && $can_bp_member_menu ) {
 
 					// Only run once to set main nav and defautl sub nav
-					if( !$main ){
+					if( empty( $main ) ) {
 						// Add to the main navigation
 						$main_nav = array(
 							'name'                => __( 'Achievements', 'badgeos-community' ),
