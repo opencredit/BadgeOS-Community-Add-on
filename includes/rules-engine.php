@@ -77,7 +77,7 @@ function badgeos_bp_user_deserves_community_step( $return, $user_id, $achievemen
 
 	// If we're not dealing with a step, bail here
 	if ( 'step' != get_post_type( $achievement_id ) )
-		return;
+		return $return;
 
 	// Grab our step requirements
 	$requirements = badgeos_get_step_requirements( $achievement_id );
@@ -112,7 +112,7 @@ function badgeos_bp_user_deserves_group_step( $return, $user_id, $achievement_id
 
 	// If we're not dealing with a step, bail here
 	if ( 'step' != get_post_type( $achievement_id ) )
-		return;
+		return $return;
 
 	// Grab our step requirements
 	$requirements = badgeos_get_step_requirements( $achievement_id );

@@ -14,22 +14,22 @@
  *
  * @since 1.0.0
  */
-function badgeos_award_achievement_bp_activity( $user_id, $achievement_id ){
+function badgeos_award_achievement_bp_activity( $user_id, $achievement_id ) {
 
-	if( !$user_id || !$achievement_id )
+	if ( ! $user_id || ! $achievement_id )
 		return false;
 
-	$post = get_post($achievement_id);
+	$post = get_post( $achievement_id );
 	$type = $post->post_type;
 
 	// Don't make activity posts for step post type
-	if( 'step' == $type )
+	if ( 'step' == $type )
 		return false;
 
 	// Check if option is on/off
 	$achievement_type = get_page_by_title( $type, 'OBJECT', 'achievement-type' );
 	$can_bp_activity = get_post_meta( $achievement_type->ID, '_badgeos_create_bp_activty', true );
-	if( $can_bp_activity )
+	if ( ! $can_bp_activity )
 		return false;
 
 	// Grab the singular name for our achievement type
@@ -43,13 +43,13 @@ function badgeos_award_achievement_bp_activity( $user_id, $achievement_id ){
 
 	// Insert the activity
 	bp_activity_add( array(
-		'action'       => sprintf( __( '%1$s earned a %2$s: %3$s', 'badgeos-community' ), bp_core_get_userlink( $user_id ), $post_type_singular_name, '<a href="' . get_permalink( $achievement_id ) . '">' . $post->post_title . '</a>' ),
-		'content'      => $content,
-		'component'    => 'badgeos',
-		'type'         => 'activity_update',
-		'primary_link' => get_permalink( $achievement_id ),
-		'user_id'      => $user_id
-	) );
+			'action'       => sprintf( __( '%1$s earned a %2$s: %3$s', 'badgeos-community' ), bp_core_get_userlink( $user_id ), $post_type_singular_name, '<a href="' . get_permalink( $achievement_id ) . '">' . $post->post_title . '</a>' ),
+			'content'      => $content,
+			'component'    => 'badgeos',
+			'type'         => 'activity_update',
+			'primary_link' => get_permalink( $achievement_id ),
+			'user_id'      => $user_id
+		) );
 
 }
 add_action( 'badgeos_award_achievement', 'badgeos_award_achievement_bp_activity', 10, 2 );

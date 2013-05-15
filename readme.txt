@@ -4,7 +4,7 @@ Donate link: http://badgeos.org/contribute/donate/
 Tags: badge, badges, openbadges, credly, OBI, mozilla, open badges, achievement, award, reward, engagement, submission, nomination, buddypress, community, API, open credit, credit, bbpress, plugin
 Requires at least: WordPress 3.5, BuddyPress 1.7 & BadgeOS 1.0.2
 Tested up to: 3.5.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GNU AGPLv3
 License URI: http://www.gnu.org/licenses/agpl-3.0.html
 
@@ -163,6 +163,9 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 
 == Changelog ==
+
+= 1.0.2 =
+* Fix: Fixed bug that prevented unlocking achievements attached to unlocked steps
 
 = 1.0.1 =
 * New: Added .po and .mo files for internationalization
