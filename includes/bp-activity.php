@@ -27,7 +27,7 @@ function badgeos_award_achievement_bp_activity( $user_id, $achievement_id ) {
 		return false;
 
 	// Check if option is on/off
-	$achievement_type = get_page_by_title( $type, 'OBJECT', 'achievement-type' );
+	$achievement_type = get_page_by_title( str_replace('-',' ', $type), 'OBJECT', 'achievement-type' );
 	$can_bp_activity = get_post_meta( $achievement_type->ID, '_badgeos_create_bp_activty', true );
 	if ( ! $can_bp_activity )
 		return false;
