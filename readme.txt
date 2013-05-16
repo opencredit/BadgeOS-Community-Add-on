@@ -165,7 +165,8 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 == Changelog ==
 
 = 1.0.2 =
-* Fix: Fixed bug that prevented unlocking achievements attached to unlocked steps
+* Fix: Fixed bug that prevented unlocking achievements attached to unlocked steps.
+* Fix: Check if group component is turned on before querying groups.
 
 = 1.0.1 =
 * New: Added .po and .mo files for internationalization
