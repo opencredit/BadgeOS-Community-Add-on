@@ -35,9 +35,18 @@ add_action( 'init', 'badgeos_bp_load_community_triggers' );
  * @since 1.0.0
  */
 function badgeos_bp_trigger_event() {
-
 	// Setup all our important variables
 	global $user_ID, $blog_id, $wpdb;
+
+	if ( 'bp_core_activated_user' == current_filter() ) {
+		//Apparently the user isn't officially created yet.
+		if ( empty( $user_ID ) ) {
+			//Grab the last user from the database.
+			$rs = $wpdb->get_results( $wpdb->prepare( "SELECT ID FROM ".$wpdb->prefix."users ORDER BY ID DESC LIMIT 1", '' ) );
+			$user_ID = $rs[0]->ID;
+		}
+	}
+
 	$user_data = get_user_by( 'id', $user_ID );
 
 	// Grab the current trigger
