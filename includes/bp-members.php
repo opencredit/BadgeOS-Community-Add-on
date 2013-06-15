@@ -37,11 +37,11 @@ function bagdeos_bp_member_achievements_content() {
 		foreach ( $achievement_types as $achievement_type ) {
 			$name = get_post_type_object( $achievement_type )->labels->name;
 			$slug = str_replace( ' ', '-', strtolower( $name ) );
-			if ( $slug && strpos( $_SERVER[REQUEST_URI], $slug ) ) {
+			if ( $slug && strpos( $_SERVER['REQUEST_URI'], $slug ) ) {
 				$type = $achievement_type;
 			}
 		}
-		if ( ! $type )
+		if ( empty( $type ) )
 			$type = $achievement_types[0];
 	}
 
