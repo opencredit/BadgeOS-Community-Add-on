@@ -164,6 +164,9 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 == Changelog ==
 
+= 1.0.3 =
+* New: If Multisite is enabled and BadgeOS setting to show all achievements across the network is enabled member profile achievements will show all achievements across the network.
+
 = 1.0.2 =
 * Fix: Fixed bug that prevented unlocking achievements attached to unlocked steps.
 * Fix: Check if group component is turned on before querying groups.

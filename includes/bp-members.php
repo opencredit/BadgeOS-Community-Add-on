@@ -27,7 +27,7 @@ function bagdeos_bp_member_achievements() {
 function bagdeos_bp_member_achievements_content() {
 	global $bp;
 
-	$achievement_types = badgeos_get_user_earned_achievement_types( bp_displayed_user_id() );
+	$achievement_types = badgeos_get_network_achievement_types_for_user( bp_displayed_user_id() );
 	// Eliminate step cpt from array
 	if ( ( $key = array_search( 'step', $achievement_types ) ) !== false ) {
 		unset( $achievement_types[$key] );
@@ -133,7 +133,7 @@ class BadgeOS_Community_Members extends BP_Component {
 
 	// Member Profile Menu
 	public function setup_nav( $main_nav = '', $sub_nav = '' ) {
-		global $bp;
+		global $bp, $blog_id;
 		if ( ! is_user_logged_in() && ! bp_displayed_user_id() )
 			return;
 
@@ -153,8 +153,8 @@ class BadgeOS_Community_Members extends BP_Component {
 			endwhile;
 		}
 
+		$achievement_types = badgeos_get_network_achievement_types_for_user( bp_displayed_user_id() );
 		// Loop achievement types current user has earned
-		$achievement_types = badgeos_get_user_earned_achievement_types( bp_displayed_user_id() );
 		foreach ( $achievement_types as $achievement_type ) {
 
 			$achievement_object = get_post_type_object( $achievement_type );
