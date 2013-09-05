@@ -52,6 +52,7 @@ function bagdeos_bp_member_achievements_content() {
 		'show_search' => 'false',
 		'group_id'    => '0',
 		'user_id'     => bp_displayed_user_id(),
+		'wpms'        => badgeos_ms_show_all_achievements(),
 	);
 	echo badgeos_achievements_list_shortcode( $atts );
 }
