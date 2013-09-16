@@ -34,10 +34,13 @@ add_action( 'init', 'badgeos_bp_load_community_triggers' );
  *
  * @since 1.0.0
  */
-function badgeos_bp_trigger_event() {
-
+function badgeos_bp_trigger_event( $args = '' ) {
 	// Setup all our important variables
 	global $user_ID, $blog_id, $wpdb;
+
+	if ( empty( $user_ID ) && 'bp_core_activated_user' == current_filter() )
+		$user_ID = absint( $args );
+
 	$user_data = get_user_by( 'id', $user_ID );
 
 	// Sanity check, if we don't have a user object, bail here

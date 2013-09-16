@@ -1,5 +1,5 @@
 === BadgeOS Community Add-on ===
-Contributors: credly, webdevstudios, Messenlehner, rzen, williamsba1, LisaSabinWilson
+Contributors: credly, webdevstudios, Messenlehner, rzen, williamsba1, LisaSabinWilson, tw2113
 Donate link: http://badgeos.org/contribute/donate/
 Tags: badge, badges, openbadges, credly, OBI, mozilla, open badges, achievement, award, reward, engagement, submission, nomination, buddypress, community, API, open credit, credit, bbpress, plugin
 Requires at least: WordPress 3.5, BuddyPress 1.7 & BadgeOS 1.0.2
@@ -163,6 +163,9 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 
 == Changelog ==
+
+= 1.0.3 =
+* New: If Multisite is enabled and BadgeOS setting to show all achievements across the network is enabled member profile achievements will show all achievements across the network.
 
 = 1.0.2 =
 * Fix: Fixed bug that prevented unlocking achievements attached to unlocked steps.
