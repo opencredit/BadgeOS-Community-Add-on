@@ -2,7 +2,7 @@
 Contributors: credly, webdevstudios, Messenlehner, rzen, williamsba1, LisaSabinWilson, tw2113
 Donate link: http://badgeos.org/contribute/donate/
 Tags: badge, badges, openbadges, credly, OBI, mozilla, open badges, achievement, award, reward, engagement, submission, nomination, buddypress, community, API, open credit, credit, bbpress, plugin
-Requires at least: WordPress 3.5, BuddyPress 1.7 & BadgeOS 1.0.2
+Requires at least: WordPress 3.5, BuddyPress 1.7 & BadgeOS 1.2
 Tested up to: 3.5.1
 Stable tag: 1.0.2
 License: GNU AGPLv3
@@ -14,7 +14,7 @@ Adds BadgeOS features to BuddyPress and bbPress. Earn badges based on community 
 
 The "BadgeOS Community Add-on" integrates BadgeOS features into BuddyPress and bbPress. Site members complete achievements and earn badges based on a range of community activity and triggers. This add-on to BadgeOS also includes the ability to display badges and achievements on user profiles and activity feeds.
 
-**Note:** You will need to install the free [BadgeOS plugin](http://wordpress.org/extend/plugins/badgeos/ "BadgeOS")&trade; (version 1.0.2 or higher) to use the BadgeOS Community Add-on. You will also need the [BuddyPress plugin](http://wordpress.org/extend/plugins/buddypress/ "BadgeOS") v1.7 or higher installed.
+**Note:** You will need to install the free [BadgeOS plugin](http://wordpress.org/extend/plugins/badgeos/ "BadgeOS")&trade; (version 1.2 or higher) to use the BadgeOS Community Add-on. You will also need the [BuddyPress plugin](http://wordpress.org/extend/plugins/buddypress/ "BadgeOS") v1.7 or higher installed.
 
 [Get the BadgeOS plugin](http://wordpress.org/extend/plugins/badgeos/ "BadgeOS").
 
