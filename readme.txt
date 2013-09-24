@@ -182,5 +182,17 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 == Upgrade Notice ==
 
+= 1.1.0 =
+* New: Show all achievements from across a multisite network in member profile
+
+= 1.0.2 =
+* Fix: Fixed bug that prevented unlocking achievements attached to unlocked steps.
+* Fix: Check if group component is turned on before querying groups.
+
+= 1.0.1 =
+* New: Added .po and .mo files for internationalization
+* Updated: Check for BadgeOS version 1.0.2 or higher before activating plugin.
+* Fix: Stomped out a bug that prevented certain community triggers from unlocking steps
+
 = 1.0 =
 * Initial release
