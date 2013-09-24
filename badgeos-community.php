@@ -5,7 +5,7 @@
  * Description: This BadgeOS add-on integrates BadgeOS features with BuddyPress and bbPress.
  * Tags: buddypress
  * Author: Credly
- * Version: 1.0.2
+ * Version: 1.1.0
  * Author URI: https://credly.com/
  * License: GNU AGPL
  */
