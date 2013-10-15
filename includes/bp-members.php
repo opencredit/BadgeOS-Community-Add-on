@@ -33,7 +33,10 @@ function bagdeos_bp_member_achievements_content() {
 		unset( $achievement_types[$key] );
 		$achievement_types = array_values( $achievement_types );
 	}
-	if ( is_array( $achievement_types ) ) {
+
+	$type = '';
+
+	if ( is_array( $achievement_types ) && !empty( $achievement_types ) ) {
 		foreach ( $achievement_types as $achievement_type ) {
 			$name = get_post_type_object( $achievement_type )->labels->name;
 			$slug = str_replace( ' ', '-', strtolower( $name ) );
@@ -155,46 +158,68 @@ class BadgeOS_Community_Members extends BP_Component {
 		}
 
 		$achievement_types = badgeos_get_network_achievement_types_for_user( bp_displayed_user_id() );
-		// Loop achievement types current user has earned
-		foreach ( $achievement_types as $achievement_type ) {
 
-			$achievement_object = get_post_type_object( $achievement_type );
-			$name = is_object( $achievement_object ) ? $achievement_object->labels->name : '';
-			$slug = str_replace( ' ', '-', strtolower( $name ) );
-			// Get post_id of earned achievement type slug
-			$post_id = isset( $arr_achivement_types[$achievement_type] ) ? $arr_achivement_types[$achievement_type] : 0;
-			if ( $post_id ) {
+		if ( !empty( $achievement_types ) ) {
+			// Loop achievement types current user has earned
+			foreach ( $achievement_types as $achievement_type ) {
 
-				//check if this achievement type can be shown on the member profile page
-				$can_bp_member_menu = get_post_meta( $post_id, '_badgeos_show_bp_member_menu', true );
-				if ( $slug && $can_bp_member_menu ) {
+				$achievement_object = get_post_type_object( $achievement_type );
+				$name = is_object( $achievement_object ) ? $achievement_object->labels->name : '';
+				$slug = str_replace( ' ', '-', strtolower( $name ) );
+				// Get post_id of earned achievement type slug
+				$post_id = isset( $arr_achivement_types[$achievement_type] ) ? $arr_achivement_types[$achievement_type] : 0;
+				if ( $post_id ) {
 
-					// Only run once to set main nav and defautl sub nav
-					if ( empty( $main ) ) {
-						// Add to the main navigation
-						$main_nav = array(
-							'name'                => __( 'Achievements', 'badgeos-community' ),
-							'slug'                => $this->slug,
-							'position'            => 100,
-							'screen_function'     => 'bagdeos_bp_member_achievements',
-							'default_subnav_slug' => $slug
+					//check if this achievement type can be shown on the member profile page
+					$can_bp_member_menu = get_post_meta( $post_id, '_badgeos_show_bp_member_menu', true );
+					if ( $slug && $can_bp_member_menu ) {
+
+						// Only run once to set main nav and defautl sub nav
+						if ( empty( $main ) ) {
+							// Add to the main navigation
+							$main_nav = array(
+								'name'                => __( 'Achievements', 'badgeos-community' ),
+								'slug'                => $this->slug,
+								'position'            => 100,
+								'screen_function'     => 'bagdeos_bp_member_achievements',
+								'default_subnav_slug' => $slug
+							);
+							$main = true;
+						}
+
+						$sub_nav[] = array(
+							'name'            => __( $name, 'buddypress' ),
+							'slug'            => $slug,
+							'parent_url'      => $parent_url,
+							'parent_slug'     => $this->slug,
+							'screen_function' => 'bagdeos_bp_member_achievements',
+							'position'        => 10,
 						);
-						$main = true;
-					}
 
-					$sub_nav[] = array(
-						'name'            => __( $name, 'buddypress' ),
-						'slug'            => $slug,
-						'parent_url'      => $parent_url,
-						'parent_slug'     => $this->slug,
-						'screen_function' => 'bagdeos_bp_member_achievements',
-						'position'        => 10,
-					);
+					}
 
 				}
 
 			}
+		}
+		else {
+			// Add to the main navigation
+			$main_nav = array(
+				'name'                => __( 'Achievements', 'badgeos-community' ),
+				'slug'                => $this->slug,
+				'position'            => 100,
+				'screen_function'     => 'bagdeos_bp_member_achievements',
+				'default_subnav_slug' => 'achievements'
+			);
 
+			$sub_nav[] = array(
+				'name'            => __( 'Achievements', 'badgeos-community' ),
+				'slug'            => 'achievements',
+				'parent_url'      => $parent_url,
+				'parent_slug'     => $this->slug,
+				'screen_function' => 'bagdeos_bp_member_achievements',
+				'position'        => 10,
+			);
 		}
 
 		parent::setup_nav( $main_nav, $sub_nav );
