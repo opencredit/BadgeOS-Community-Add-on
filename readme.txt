@@ -164,6 +164,10 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 == Changelog ==
 
+= 1.1.1 =
+* Fixed: Show community triggers when either BadgeOS, BuddyPress or this add-on are activated network-wide.
+* Updated: Show Achievements menu in BuddyPress profile even if no achievements have been earned on a single network site.
+
 = 1.1.0 =
 * New: Show all achievements from across a multisite network in member profile
 
@@ -181,6 +185,10 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+* Fixed: Show community triggers when either BadgeOS, BuddyPress or this add-on are activated network-wide.
+* Updated: Show Achievements menu in BuddyPress profile even if no achievements have been earned on a single network site.
 
 = 1.1.0 =
 * New: Show all achievements from across a multisite network in member profile

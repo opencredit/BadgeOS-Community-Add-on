@@ -5,7 +5,7 @@
  * Description: This BadgeOS add-on integrates BadgeOS features with BuddyPress and bbPress.
  * Tags: buddypress
  * Author: Credly
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author URI: https://credly.com/
  * License: GNU AGPL
  */
@@ -43,6 +43,7 @@ class BadgeOS_Community {
 
 		// If BadgeOS is unavailable, deactivate our plugin
 		add_action( 'admin_notices', array( $this, 'maybe_disable_plugin' ) );
+		add_action( 'plugins_loaded', array( $this, 'includes' ) );
 		add_action( 'bp_include', array( $this, 'bp_include' ) );
 		add_action( 'wp_print_scripts', array( $this, 'enqueue_scripts' ) );
 
@@ -78,15 +79,25 @@ class BadgeOS_Community {
 	}
 
 	/**
-	 * Files to include with BuddyPress
+	 * Files to include for BadgeOS integration.
+	 *
+	 * @since  1.1.1
+	 */
+	public function includes() {
+		if ( $this->meets_requirements() ) {
+			require_once( $this->directory_path . '/includes/rules-engine.php' );
+			require_once( $this->directory_path . '/includes/steps-ui.php' );
+		}
+	}
+
+	/**
+	 * Files to include for BuddyPress integration.
 	 *
 	 * @since 1.0.0
 	 */
 	public function bp_include() {
 
 		if ( $this->meets_requirements() ) {
-			require_once( $this->directory_path . '/includes/rules-engine.php' );
-			require_once( $this->directory_path . '/includes/steps-ui.php' );
 			if ( bp_is_active( 'xprofile' ) )
 				require_once( $this->directory_path . '/includes/bp-members.php' );
 			if ( bp_is_active( 'activity' ) )
@@ -146,7 +157,7 @@ class BadgeOS_Community {
 	 */
 	public static function meets_requirements() {
 
-		if ( class_exists('BadgeOS') && function_exists('badgeos_get_user_earned_achievement_types') && class_exists('BuddyPress') )
+		if ( class_exists('BadgeOS') && version_compare( BadgeOS::$version, '1.2.0', '>=' ) && class_exists( 'BuddyPress' ) )
 			return true;
 		else
 			return false;
@@ -163,8 +174,8 @@ class BadgeOS_Community {
 		if ( ! $this->meets_requirements() ) {
 			// Display our error
 			echo '<div id="message" class="error">';
-				if ( !class_exists('BadgeOS') || !function_exists('badgeos_get_user_earned_achievement_types') )
-					echo '<p>' . sprintf( __( 'BadgeOS Community Add-On requires BadgeOS and has been <a href="%s">deactivated</a>. Please install and activate BadgeOS and then reactivate this plugin.', 'badgeos-community' ), admin_url( 'plugins.php' ) ) . '</p>';
+				if ( ! class_exists('BadgeOS') || ! version_compare( BadgeOS::$version, '1.2.0', '>=' ) )
+					echo '<p>' . sprintf( __( 'BadgeOS Community Add-On requires BadgeOS 1.2.0 or greater and has been <a href="%s">deactivated</a>. Please install and activate BadgeOS and then reactivate this plugin.', 'badgeos-community' ), admin_url( 'plugins.php' ) ) . '</p>';
 				elseif ( !class_exists('BuddyPress') )
 					echo '<p>' . sprintf( __( 'BadgeOS Community Add-On requires BuddyPress and has been <a href="%s">deactivated</a>. Please install and activate BuddyPress and then reactivate this plugin.', 'badgeos-community' ), admin_url( 'plugins.php' ) ) . '</p>';
 			echo '</div>';
