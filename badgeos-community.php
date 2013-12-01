@@ -8,6 +8,7 @@
  * Version: 1.1.1
  * Author URI: https://credly.com/
  * License: GNU AGPL
+ * Text Domain: badgeos-community
  */
 
 /*
