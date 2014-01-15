@@ -25,7 +25,6 @@ function bagdeos_bp_member_achievements() {
  * @since 1.0.0
  */
 function bagdeos_bp_member_achievements_content() {
-	global $bp;
 
 	$achievement_types = badgeos_get_network_achievement_types_for_user( bp_displayed_user_id() );
 	// Eliminate step cpt from array
@@ -137,7 +136,7 @@ class BadgeOS_Community_Members extends BP_Component {
 
 	// Member Profile Menu
 	public function setup_nav( $main_nav = '', $sub_nav = '' ) {
-		global $bp, $blog_id;
+
 		if ( ! is_user_logged_in() && ! bp_displayed_user_id() )
 			return;
 
