@@ -158,7 +158,7 @@ class BadgeOS_Community {
 	 */
 	public static function meets_requirements() {
 
-		if ( class_exists('BadgeOS') && version_compare( BadgeOS::$version, '1.2.0', '>=' ) && class_exists( 'BuddyPress' ) )
+		if ( class_exists('BadgeOS') && version_compare( BadgeOS::$version, '1.2.0', '>=' ) )
 			return true;
 		else
 			return false;
@@ -171,14 +171,10 @@ class BadgeOS_Community {
 	 * @since 1.0.0
 	 */
 	public function maybe_disable_plugin() {
-
 		if ( ! $this->meets_requirements() ) {
 			// Display our error
 			echo '<div id="message" class="error">';
-				if ( ! class_exists('BadgeOS') || ! version_compare( BadgeOS::$version, '1.2.0', '>=' ) )
-					echo '<p>' . sprintf( __( 'BadgeOS Community Add-On requires BadgeOS 1.2.0 or greater and has been <a href="%s">deactivated</a>. Please install and activate BadgeOS and then reactivate this plugin.', 'badgeos-community' ), admin_url( 'plugins.php' ) ) . '</p>';
-				elseif ( !class_exists('BuddyPress') )
-					echo '<p>' . sprintf( __( 'BadgeOS Community Add-On requires BuddyPress and has been <a href="%s">deactivated</a>. Please install and activate BuddyPress and then reactivate this plugin.', 'badgeos-community' ), admin_url( 'plugins.php' ) ) . '</p>';
+			echo '<p>' . sprintf( __( 'BadgeOS Community Add-On requires BadgeOS 1.2.0 or greater and has been <a href="%s">deactivated</a>. Please install and activate BadgeOS and then reactivate this plugin.', 'badgeos-community' ), admin_url( 'plugins.php' ) ) . '</p>';
 			echo '</div>';
 
 			// Deactivate our plugin
