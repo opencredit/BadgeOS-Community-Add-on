@@ -1,5 +1,5 @@
 === BadgeOS Community Add-on ===
-Contributors: credly, webdevstudios, Messenlehner, rzen, williamsba1, LisaSabinWilson, tw2113
+Contributors: learningtimes, webdevstudios, Messenlehner, rzen, williamsba1, LisaSabinWilson, tw2113
 Donate link: http://badgeos.org/contribute/donate/
 Tags: badge, badges, openbadges, credly, OBI, mozilla, open badges, achievement, award, reward, engagement, submission, nomination, buddypress, community, API, open credit, credit, bbpress, plugin
 Requires at least: WordPress 3.5, BuddyPress 1.7 & BadgeOS 1.2
@@ -97,13 +97,14 @@ In addition to all of the out-of-the-box features in BadgeOS core, this add-on a
 
 = Stay Connected / Helpful Links =
 
-BadgeOS is made available by [Credly, LLC](https://credly.com/ "Credly web site"). Here are some ways to stay connected and to see what else we are up to:
+BadgeOS is made available by [LearningTimes, LLC](http://www.learningtimes.com "LearningTimes web site"). Here are some ways to stay connected and to see what else we are up to:
 
 * [BadgeOS.org](http://badgeos.org/ "BadgeOS web site") - Contact Us, Video Tutorials, Examples, News
+* [LearningTimes](http://www.learningtimes.com/ "LearningTimes web site") - Bringing people together through engaging online conferences, events and activities.
 * [Credly.com](https://credly.com/ "Credly web site") - Manage lifelong credentials that matter
 * [Credly Knowledgebase](http://support.credly.com/ "Credly FAQ and Support") - Credly FAQ
-* [Facebook](https://www.facebook.com/Credly "Credly on Facebook") - Credly on Facebook
-* [Twitter](https://twitter.com/credly "Credly on Facebook") - Credly Tweets
+* [Facebook](https://www.facebook.com/learningtimes "LearningTimes on Facebook") - LearningTimes on Facebook
+* [Twitter](https://twitter.com/learningtimes "LearningTimes on Twitter") - LearningTimes Tweets
 * [E-Mailing List](https://http://badgeos.org/join-list/ "BadgeOS Occasional Mailing List - No spam!") - Occasional updates via e-mail
 * [GitHub](https://github.com/opencredit/badgeos "BadgeOS on GitHub") - Report issues, contribute code
 
