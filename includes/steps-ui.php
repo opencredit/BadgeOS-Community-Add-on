@@ -50,7 +50,7 @@ add_filter( 'badgeos_activity_triggers', 'badgeos_bp_activity_triggers' );
 function badgeos_bp_step_community_trigger_select( $step_id, $post_id ) {
 
 	// Setup our select input
-	echo '<select name="community_trigger" class="select-community-trigger">';
+	echo '<select name="community_trigger" class="select-community-trigger select-community-trigger-' . $post_id . '">';
 	echo '<option value="">' . __( 'Select a Community Trigger', 'badgeos-community' ) . '</option>';
 
 	// Loop through all of our community trigger groups
@@ -81,7 +81,7 @@ add_action( 'badgeos_steps_ui_html_after_trigger_type', 'badgeos_bp_step_communi
 function badgeos_bp_step_group_select( $step_id, $post_id ) {
 
 	// Setup our select input
-	echo '<select name="group_id" class="select-group-id">';
+	echo '<select name="group_id" class="select-group-id select-group-id-' . $post_id . '">';
 	echo '<option value="">' . __( 'Select a Group', 'badgeos-community' ) . '</option>';
 
 	// Loop through all existing BP groups and include them here
