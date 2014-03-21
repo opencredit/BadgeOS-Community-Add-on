@@ -187,7 +187,7 @@ class BadgeOS_Community_Members extends BP_Component {
 						}
 
 						$sub_nav[] = array(
-							'name'            => __( $name, 'buddypress' ),
+							'name'            => $name,
 							'slug'            => $slug,
 							'parent_url'      => $parent_url,
 							'parent_slug'     => $this->slug,
