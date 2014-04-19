@@ -14,7 +14,7 @@
  *
  * @since 1.0.0
  */
-function badgeos_award_achievement_bp_activity( $user_id, $achievement_id ) {
+function badgeos_award_achievement_bp_activity( $user_id, $achievement_id, $this_trigger, $site_id, $args ) {
 
 	if ( ! $user_id || ! $achievement_id )
 		return false;
@@ -42,17 +42,26 @@ function badgeos_award_achievement_bp_activity( $user_id, $achievement_id ) {
 	$content .= '</div>';
 
 	// Insert the activity
-	bp_activity_add( array(
+	bp_activity_add( apply_filters(
+		'badgeos_award_achievement_bp_activity_details',
+		array(
 			'action'       => sprintf( __( '%1$s earned a %2$s: %3$s', 'badgeos-community' ), bp_core_get_userlink( $user_id ), $post_type_singular_name, '<a href="' . get_permalink( $achievement_id ) . '">' . $post->post_title . '</a>' ),
 			'content'      => $content,
 			'component'    => 'badgeos',
 			'type'         => 'activity_update',
 			'primary_link' => get_permalink( $achievement_id ),
-			'user_id'      => $user_id
-		) );
+			'user_id'      => $user_id,
+			'item_id'      => $achievement_id,
+		),
+		$user_id,
+		$achievement_id,
+		$this_trigger,
+		$site_id,
+		$args
+	) );
 
 }
-add_action( 'badgeos_award_achievement', 'badgeos_award_achievement_bp_activity', 10, 2 );
+add_action( 'badgeos_award_achievement', 'badgeos_award_achievement_bp_activity', 10, 5 );
 
 /**
  * Filter activity allowed html tags to allow divs with classes and ids.
