@@ -99,10 +99,15 @@ class BadgeOS_Community {
 	public function bp_include() {
 
 		if ( $this->meets_requirements() ) {
-			if ( bp_is_active( 'xprofile' ) )
+			if ( bp_is_active( 'xprofile' ) ) {
 				require_once( $this->directory_path . '/includes/bp-members.php' );
-			if ( bp_is_active( 'activity' ) )
+			}
+			if ( bp_is_active( 'activity' ) ) {
 				require_once( $this->directory_path . '/includes/bp-activity.php' );
+			}
+			if ( bp_is_active( 'groups' ) ) {
+				require_once( $this->directory_path . '/includes/bp-groups.php' );
+			}
 		}
 	}
 
