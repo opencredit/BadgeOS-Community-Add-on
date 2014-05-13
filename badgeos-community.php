@@ -106,9 +106,6 @@ class BadgeOS_Community {
 			if ( bp_is_active( 'activity' ) ) {
 				require_once( $this->directory_path . '/includes/bp-activity.php' );
 			}
-			if ( bp_is_active( 'groups' ) ) {
-				require_once( $this->directory_path . '/includes/bp-groups.php' );
-			}
 		}
 	}
 
