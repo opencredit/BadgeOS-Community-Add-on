@@ -35,7 +35,7 @@ function badgeos_bp_filter_feedback_args( $args ) {
 	$bp_group_id = absint( $_REQUEST['group_id'] );
 
 	if ( $bp_group_id ) {
-		$bp_member_ids = badgeos_bp_get_group_members_from_group( $bp_group_id );
+		$bp_member_ids = badgeos_bp_get_group_member_ids_from_group( $bp_group_id );
 	}
 
 	if ( is_array( $bp_member_ids ) && !empty( $bp_member_ids ) ) {
@@ -46,7 +46,7 @@ function badgeos_bp_filter_feedback_args( $args ) {
 }
 add_filter( 'badgeos_get_feedback_args', 'badgeos_bp_filter_feedback_args' );
 
-function badgeos_bp_get_group_members_from_group( $bp_group_id = 0 ) {
+function badgeos_bp_get_group_member_ids_from_group( $bp_group_id = 0 ) {
 	$bp_group_members = groups_get_group_members(
 		array(
 			'group_id' => $bp_group_id
