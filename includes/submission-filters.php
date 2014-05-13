@@ -39,17 +39,8 @@ function badgeos_bp_filter_feedback_args( $args ) {
 }
 add_filter( 'badgeos_get_feedback_args', 'badgeos_bp_filter_feedback_args' );
 
-function badgeos_bp_get_group_member_ids_from_group( $bp_group_id = 0 ) {
-	$bp_group_members = groups_get_group_members(
-		array(
-			'group_id' => $bp_group_id
-		)
-	);
+function badgeos_bp_get_group_member_ids_from_group( $group_id = 0 ) {
+	$group_members = groups_get_group_members( array( 'group_id' => absint( $group_id ) ) );
 
-	if ( !empty( $bp_group_members['members'] ) ) {
-		$bp_member_ids = wp_list_pluck( $bp_group_members['members'], 'ID' );
-	}
-
-	//wp_list_pluck returns an array with an empty 0 index if nothing found.
-	return ( !empty( $bp_member_ids[0] ) ) ? $bp_member_ids : array();
+	return ( ! empty( $group_members['members'] ) ) ? wp_list_pluck( $bp_group_members['members'], 'ID' ) : array();
 }
