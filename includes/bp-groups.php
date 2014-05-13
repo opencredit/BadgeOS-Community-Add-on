@@ -18,4 +18,4 @@ function badgeos_bp_group_submission_filters( $output, $atts ) {
 
 	return $output;
 }
-add_filter( 'badgeos_render_feedback', 'badgeos_bp_group_submission_filters', 10, 2 );
+add_filter( 'badgeos_render_feedback_filters', 'badgeos_bp_group_submission_filters', 10, 2 );
