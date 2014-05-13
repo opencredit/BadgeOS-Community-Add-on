@@ -27,19 +27,12 @@ add_filter( 'badgeos_render_feedback_filters', 'badgeos_bp_group_submission_filt
 
 function badgeos_bp_filter_feedback_args( $args ) {
 
-	if ( ! isset( $_REQUEST['group_id'] ) ) {
-		return $args;
-	}
+	if ( isset( $_REQUEST['group_id'] ) ) {
+		$bp_member_ids = badgeos_bp_get_group_member_ids_from_group( $_REQUEST['group_id'] );
 
-	$bp_member_ids = array();
-	$bp_group_id = absint( $_REQUEST['group_id'] );
-
-	if ( $bp_group_id ) {
-		$bp_member_ids = badgeos_bp_get_group_member_ids_from_group( $bp_group_id );
-	}
-
-	if ( is_array( $bp_member_ids ) && !empty( $bp_member_ids ) ) {
-		$args['author__in'] = $bp_member_ids;
+		if ( ! empty( $bp_member_ids ) ) {
+			$args['author__in'] = $bp_member_ids;
+		}
 	}
 
 	return $args;
