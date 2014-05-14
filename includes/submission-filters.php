@@ -12,7 +12,8 @@ function badgeos_bp_group_submission_filters( $output, $atts ) {
 
 		if ( $bp_public_groups['total'] > 0 ) {
 			$output .= '<div class="badgeos-feedback-bp-groups">';
-			$output .= '<select name="group_id" id="group_id">';
+			$output .= '<select name="group_id">';
+				$output .= '<option>' . __( 'BuddyPress Group', 'badgeos-community' ) . '</option>';
 			foreach( $bp_public_groups['groups'] as $group ) {
 				$output .= '<option value="' . $group->id . '">' . $group->name . '</option>';
 			}
