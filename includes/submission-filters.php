@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Add BP Groups filter to submission list filters
+ *
+ * @since  alpha
+ *
+ * @param  string $output HTML Markup.
+ * @param  array $atts    Shortcode Attributes.
+ * @return string         HTML Markup.
+ */
 function badgeos_bp_group_submission_filters( $output, $atts ) {
 
 	if ( 'false' !== $atts['show_filter'] ) {
@@ -28,11 +37,18 @@ function badgeos_bp_group_submission_filters( $output, $atts ) {
 }
 add_filter( 'badgeos_render_feedback_filters', 'badgeos_bp_group_submission_filters', 10, 2 );
 
+/**
+ * Limit feedback query to specific BP group members.
+ *
+ * @since  alpha
+ *
+ * @param  array $args Feedback args.
+ * @return array       Feedback args.
+ */
 function badgeos_bp_filter_feedback_args( $args ) {
 
 	if ( isset( $_REQUEST['group_id'] ) ) {
 		$bp_member_ids = badgeos_bp_get_group_member_ids_from_group( $_REQUEST['group_id'] );
-
 		if ( ! empty( $bp_member_ids ) ) {
 			$args['author__in'] = $bp_member_ids;
 		}
@@ -42,11 +58,29 @@ function badgeos_bp_filter_feedback_args( $args ) {
 }
 add_filter( 'badgeos_get_feedback_args', 'badgeos_bp_filter_feedback_args' );
 
+/**
+ * Get user IDs for a given BP group.
+ *
+ * @since  alpha
+ *
+ * @param  integer $group_id BuddyPress Group ID.
+ * @return array             User IDs, or empty array.
+ */
 function badgeos_bp_get_group_member_ids_from_group( $group_id = 0 ) {
 	$group_members = groups_get_group_members( array( 'group_id' => absint( $group_id ) ) );
 	return ( ! empty( $group_members['members'] ) ) ? wp_list_pluck( $group_members['members'], 'ID' ) : array();
 }
 
+/**
+ * Register group_id filter selector for submission list shortcode.
+ *
+ * @since  alpha
+ *
+ * @param  array $atts     Available attributes.
+ * @param  array $defaults Default attributes.
+ * @param  array $passed   Passed attributes.
+ * @return array           Available attributes.
+ */
 function badgeos_bp_submissions_atts( $atts, $defaults, $passed ) {
 	$atts['group_id'] = isset( $passed['group_id'] ) ? absint( $passed['group_id'] ) : 0;
 	$atts['filters']['group_id'] = '.badgeos-feedback-bp-groups select';
