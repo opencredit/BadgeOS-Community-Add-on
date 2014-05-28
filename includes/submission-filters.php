@@ -10,12 +10,14 @@ function badgeos_bp_group_submission_filters( $output, $atts ) {
 			)
 		);
 
+		$selected_id = isset( $atts['group_id'] ) ? absint( $atts['group_id'] ) : 0;
+
 		if ( $bp_public_groups['total'] > 0 ) {
-			$output .= '<div class="badgeos-feedback-bp-groups">';
+			$output .= '<div class="badgeos-feedback-filter badgeos-feedback-bp-groups">';
 			$output .= '<select name="group_id">';
-				$output .= '<option>' . __( 'BuddyPress Group', 'badgeos-community' ) . '</option>';
+				$output .= '<option value="0">' . __( 'BuddyPress Group', 'badgeos-community' ) . '</option>';
 			foreach( $bp_public_groups['groups'] as $group ) {
-				$output .= '<option value="' . $group->id . '" ' . selected( $_REQUEST['group_id'], $group->id, false ) . '>' . $group->name . '</option>';
+				$output .= '<option value="' . absint( $group->id ) . '" ' . selected( $selected_id, $group->id, false ) . '>' . esc_attr( $group->name ) . '</option>';
 			}
 			$output .= '</select>';
 			$output .= '</div>';
