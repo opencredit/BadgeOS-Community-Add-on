@@ -47,9 +47,9 @@ function badgeos_bp_get_group_member_ids_from_group( $group_id = 0 ) {
 	return ( ! empty( $group_members['members'] ) ) ? wp_list_pluck( $group_members['members'], 'ID' ) : array();
 }
 
-function badgeos_bp_submissions_atts( $atts ) {
+function badgeos_bp_submissions_atts( $atts, $defaults, $passed ) {
+	$atts['group_id'] = isset( $passed['group_id'] ) ? absint( $passed['group_id'] ) : 0;
 	$atts['filters']['group_id'] = '.badgeos-feedback-bp-groups select';
-
 	return $atts;
 }
-add_filter( 'shortcode_atts_badgeos_submissions', 'badgeos_bp_submissions_atts' );
+add_filter( 'shortcode_atts_badgeos_submissions', 'badgeos_bp_submissions_atts', 10, 3 );
