@@ -11,7 +11,7 @@
  */
 function badgeos_bp_group_submission_filters( $output, $atts ) {
 
-	if ( 'false' !== $atts['show_filter'] ) {
+	if ( 'false' !== $atts['show_filter'] && badgeos_user_can_manage_submissions() ) {
 		$bp_public_groups = groups_get_groups(
 			array(
 				'orderby' => 'name',
