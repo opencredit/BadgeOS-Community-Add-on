@@ -23,12 +23,13 @@ function badgeos_bp_group_submission_filters( $output, $atts ) {
 
 		if ( $bp_public_groups['total'] > 0 ) {
 			$output .= '<div class="badgeos-feedback-filter badgeos-feedback-bp-groups">';
-			$output .= '<select name="group_id">';
-				$output .= '<option value="0">' . __( 'BuddyPress Group', 'badgeos-community' ) . '</option>';
-			foreach( $bp_public_groups['groups'] as $group ) {
-				$output .= '<option value="' . absint( $group->id ) . '" ' . selected( $selected_id, $group->id, false ) . '>' . esc_attr( $group->name ) . '</option>';
-			}
-			$output .= '</select>';
+				$output .= '<label for="group_id">' . __( 'Group:', 'badgeos' ) . '</label>';
+				$output .= ' <select name="group_id" id="group_id">';
+					$output .= '<option value="0">' . __( 'All', 'badgeos-community' ) . '</option>';
+				foreach( $bp_public_groups['groups'] as $group ) {
+					$output .= '<option value="' . absint( $group->id ) . '" ' . selected( $selected_id, $group->id, false ) . '>' . esc_attr( $group->name ) . '</option>';
+				}
+				$output .= '</select>';
 			$output .= '</div>';
 		}
 	}
