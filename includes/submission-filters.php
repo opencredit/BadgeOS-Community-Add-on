@@ -54,10 +54,10 @@ function badgeos_bp_filter_feedback_args( $args ) {
 
 	if ( ! empty( $_REQUEST['group_id'] ) ) {
 		$bp_member_ids = badgeos_bp_get_group_member_ids_from_group( $_REQUEST['group_id'] );
-		if ( empty( $args['author__in'] ) ) {
-			$args = array();
-		} else {
+		if ( ! empty( $bp_member_ids ) ) {
 			$args['author__in'] = $bp_member_ids;
+		} else {
+			$args = array();
 		}
 	}
 
