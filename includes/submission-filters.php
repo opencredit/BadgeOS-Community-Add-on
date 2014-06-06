@@ -94,3 +94,17 @@ function badgeos_bp_submissions_atts( $atts, $defaults, $passed ) {
 	return $atts;
 }
 add_filter( 'shortcode_atts_badgeos_submissions', 'badgeos_bp_submissions_atts', 10, 3 );
+
+function badgeos_bp_add_group_id_to_submissions_shortcode( $shortcodes ) {
+
+	$shortcodes['badgeos_submissions']->attributes['group_id'] = array(
+		'name' => __( 'Group ID', 'badgeos-community' ),
+		'type' => 'text',
+		'description' => __( 'BuddyPress Group ID', 'badgeos-community' ),
+		'values' => '',
+		'default' => ''
+	);
+
+	return $shortcodes;
+}
+add_filter( 'badgeos_shortcodes', 'badgeos_bp_add_group_id_to_submissions_shortcode', 11 );
