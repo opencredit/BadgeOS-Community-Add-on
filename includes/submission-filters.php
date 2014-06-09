@@ -12,7 +12,7 @@
 /**
  * Add BP Groups filter to submission list filters
  *
- * @since  alpha
+ * @since  1.4.0
  *
  * @param  string $output HTML Markup.
  * @param  array $atts    Shortcode Attributes.
@@ -54,7 +54,7 @@ add_filter( 'badgeos_render_feedback_filters', 'badgeos_bp_group_submission_filt
 /**
  * Limit feedback query to specific BP group members.
  *
- * @since  alpha
+ * @since  1.4.0
  *
  * @param  array $args Feedback args.
  * @return array       Feedback args.
@@ -77,7 +77,7 @@ add_filter( 'badgeos_get_feedback_args', 'badgeos_bp_filter_feedback_args' );
 /**
  * Get user IDs for a given BP group.
  *
- * @since  alpha
+ * @since  1.4.0
  *
  * @param  integer $group_id BuddyPress Group ID.
  * @return array             User IDs, or empty array.
@@ -90,7 +90,7 @@ function badgeos_bp_get_group_member_ids_from_group( $group_id = 0 ) {
 /**
  * Register group_id filter selector for submission list shortcode.
  *
- * @since  alpha
+ * @since  1.4.0
  *
  * @param  array $atts     Available attributes.
  * @param  array $defaults Default attributes.
