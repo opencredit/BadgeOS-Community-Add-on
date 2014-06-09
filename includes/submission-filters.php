@@ -1,4 +1,13 @@
 <?php
+/**
+ * Submission List Filters
+ *
+ * @package BadgeOS Community
+ * @subpackage Achievements
+ * @author LearningTimes, LLC
+ * @license http://www.gnu.org/licenses/agpl.txt GNU AGPL v3.0
+ * @link https://credly.com
+ */
 
 /**
  * Add BP Groups filter to submission list filters
