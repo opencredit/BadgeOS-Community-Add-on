@@ -97,10 +97,11 @@ In addition to all of the out-of-the-box features in BadgeOS core, this add-on a
 
 = Stay Connected / Helpful Links =
 
-BadgeOS is made available by [Credly, LLC](https://credly.com/ "Credly web site"). Here are some ways to stay connected and to see what else we are up to:
+BadgeOS is made available by [LearningTimes, LLC](http://www.learningtimes.com/ "LearningTimes web site"). Here are some ways to stay connected and to see what else we are up to:
 
 * [BadgeOS.org](http://badgeos.org/ "BadgeOS web site") - Contact Us, Video Tutorials, Examples, News
-* [Credly.com](https://credly.com/ "Credly web site") - Manage lifelong credentials that matter
+* [LearningTimes](http://www.learningtimes.com "LearningTimes web site") - Producers of online learning events, programs and applications 
+* [Credly.com](https://credly.com/ "Credly web site") - Issue, manage, share and collect lifelong credentials and digital badges
 * [Credly Knowledgebase](http://support.credly.com/ "Credly FAQ and Support") - Credly FAQ
 * [Facebook](https://www.facebook.com/Credly "Credly on Facebook") - Credly on Facebook
 * [Twitter](https://twitter.com/credly "Credly on Facebook") - Credly Tweets
