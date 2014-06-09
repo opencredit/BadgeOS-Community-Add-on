@@ -4,7 +4,7 @@
  * Plugin URI: http://www.badgeos.org/
  * Description: This BadgeOS add-on integrates BadgeOS features with BuddyPress and bbPress.
  * Tags: buddypress
- * Author: LearningTimes, LLC
+ * Author: Credly
  * Version: 1.2.0
  * Author URI: https://credly.com/
  * License: GNU AGPL
