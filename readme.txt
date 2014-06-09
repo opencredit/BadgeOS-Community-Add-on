@@ -1,10 +1,10 @@
 === BadgeOS Community Add-on ===
-Contributors: badgeos, learningtimes, webdevstudios, Messenlehner, rzen, williamsba1, LisaSabinWilson, tw2113
+Contributors: learningtimes, badgeos, credly, webdevstudios, Messenlehner, rzen, williamsba1, LisaSabinWilson, tw2113
 Donate link: http://badgeos.org/contribute/donate/
 Tags: badge, badges, openbadges, credly, OBI, mozilla, open badges, achievement, award, reward, engagement, submission, nomination, buddypress, community, API, open credit, credit, bbpress, plugin
 Requires at least: WordPress 3.5, BuddyPress 1.7 & BadgeOS 1.2
-Tested up to: 3.5.1
-Stable tag: 1.1.1
+Tested up to: 3.9.1
+Stable tag: 1.2.0
 License: GNU AGPLv3
 License URI: http://www.gnu.org/licenses/agpl-3.0.html
 
@@ -81,10 +81,10 @@ In addition to all of the out-of-the-box features in BadgeOS core, this add-on a
 *   Use Credly iOS app to issue community badges you created on your WordPress/BuddyPress/BadgeOS site.
 *   As badges are earned on WordPress/BuddyPress, they can be automatically sent to Credly for easy sharing on Facebook, LinkedIn, Twitter, Mozilla Backpack, the earner's own web site, blog, or Credly profile.
 
-= Theme Agnostic =
+**Filter Submission Lists by BuddyPress Group**
+The core BadgeOS Submissions lists can now be filtered by BuddyPress user group. This makes it much easier for administrators to moderate submissions group by group.
 
-* BadgeOS Community Add-on works with just about any standard WordPress theme using BuddyPress v1.7+
-* No special hooks or theme updates are needed.
+This filter compounds with the existing Submission Status and Search filters, making it possible to refine the submission list even further.
 
 
 = Extensibility and Additional BadgeOS Add-ons =
@@ -97,11 +97,11 @@ In addition to all of the out-of-the-box features in BadgeOS core, this add-on a
 
 = Stay Connected / Helpful Links =
 
-BadgeOS is made available by [LearningTimes, LLC](http://www.learningtimes.com "LearningTimes web site"). Here are some ways to stay connected and to see what else we are up to:
+BadgeOS is made available by [LearningTimes, LLC](http://www.learningtimes.com/ "LearningTimes web site"). Here are some ways to stay connected and to see what else we are up to:
 
 * [BadgeOS.org](http://badgeos.org/ "BadgeOS web site") - Contact Us, Video Tutorials, Examples, News
-* [LearningTimes](http://www.learningtimes.com/ "LearningTimes web site") - Bringing people together through engaging online conferences, events and activities.
-* [Credly.com](https://credly.com/ "Credly web site") - Manage lifelong credentials that matter
+* [LearningTimes](http://www.learningtimes.com "LearningTimes web site") - Producers of online learning events, programs and applications
+* [Credly.com](https://credly.com/ "Credly web site") - Issue, manage, share and collect lifelong credentials and digital badges
 * [Credly Knowledgebase](http://support.credly.com/ "Credly FAQ and Support") - Credly FAQ
 * [Facebook](https://www.facebook.com/learningtimes "LearningTimes on Facebook") - LearningTimes on Facebook
 * [Twitter](https://twitter.com/learningtimes "LearningTimes on Twitter") - LearningTimes Tweets
@@ -165,6 +165,10 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 == Changelog ==
 
+= 1.2.0 =
+* New: Submission lists can now be filtered by Group ID.
+* New: Added filter badgeos_award_achievement_bp_activity_details for altering the BuddyPress activity stream data before insertion.
+
 = 1.1.1 =
 * Fixed: Show community triggers when either BadgeOS, BuddyPress or this add-on are activated network-wide.
 * Updated: Show Achievements menu in BuddyPress profile even if no achievements have been earned on a single network site.
@@ -186,6 +190,10 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+* New: Submission lists can now be filtered by Group ID.
+* New: Added filter badgeos_award_achievement_bp_activity_details for altering the BuddyPress activity stream data before insertion.
 
 = 1.1.1 =
 * Fixed: Show community triggers when either BadgeOS, BuddyPress or this add-on are activated network-wide.

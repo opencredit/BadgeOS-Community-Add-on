@@ -5,14 +5,14 @@
  * Description: This BadgeOS add-on integrates BadgeOS features with BuddyPress and bbPress.
  * Tags: buddypress
  * Author: Credly
- * Version: 1.1.1
+ * Version: 1.2.0
  * Author URI: https://credly.com/
  * License: GNU AGPL
  * Text Domain: badgeos-community
  */
 
 /*
- * Copyright © 2012-2013 Credly, LLC
+ * Copyright © 2012-2013 LearningTimes, LLC
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License, version 3,
@@ -88,6 +88,7 @@ class BadgeOS_Community {
 		if ( $this->meets_requirements() ) {
 			require_once( $this->directory_path . '/includes/rules-engine.php' );
 			require_once( $this->directory_path . '/includes/steps-ui.php' );
+			require_once( $this->directory_path . '/includes/submission-filters.php' );
 		}
 	}
 
@@ -99,10 +100,12 @@ class BadgeOS_Community {
 	public function bp_include() {
 
 		if ( $this->meets_requirements() ) {
-			if ( bp_is_active( 'xprofile' ) )
+			if ( bp_is_active( 'xprofile' ) ) {
 				require_once( $this->directory_path . '/includes/bp-members.php' );
-			if ( bp_is_active( 'activity' ) )
+			}
+			if ( bp_is_active( 'activity' ) ) {
 				require_once( $this->directory_path . '/includes/bp-activity.php' );
+			}
 		}
 	}
 
@@ -158,7 +161,7 @@ class BadgeOS_Community {
 	 */
 	public static function meets_requirements() {
 
-		if ( class_exists('BadgeOS') && version_compare( BadgeOS::$version, '1.2.0', '>=' ) )
+		if ( class_exists('BadgeOS') && version_compare( BadgeOS::$version, '1.4.0', '>=' ) )
 			return true;
 		else
 			return false;
