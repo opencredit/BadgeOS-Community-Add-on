@@ -165,6 +165,10 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 == Changelog ==
 
+= 1.2.0 =
+* New: Submission lists can now be filtered by Group ID.
+* New: Added filter badgeos_award_achievement_bp_activity_details for altering the BuddyPress activity stream data before insertion.
+
 = 1.1.1 =
 * Fixed: Show community triggers when either BadgeOS, BuddyPress or this add-on are activated network-wide.
 * Updated: Show Achievements menu in BuddyPress profile even if no achievements have been earned on a single network site.
@@ -186,6 +190,10 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+* New: Submission lists can now be filtered by Group ID.
+* New: Added filter badgeos_award_achievement_bp_activity_details for altering the BuddyPress activity stream data before insertion.
 
 = 1.1.1 =
 * Fixed: Show community triggers when either BadgeOS, BuddyPress or this add-on are activated network-wide.
