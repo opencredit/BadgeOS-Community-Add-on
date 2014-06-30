@@ -2,7 +2,7 @@
 Contributors: learningtimes, badgeos, credly, webdevstudios, Messenlehner, rzen, williamsba1, LisaSabinWilson, tw2113
 Donate link: http://badgeos.org/contribute/donate/
 Tags: badge, badges, openbadges, credly, OBI, mozilla, open badges, achievement, award, reward, engagement, submission, nomination, buddypress, community, API, open credit, credit, bbpress, plugin
-Requires at least: WordPress 3.5, BuddyPress 1.7 & BadgeOS 1.2
+Requires at least: WordPress 3.6.0, BuddyPress 1.7.0 & BadgeOS 1.4.0
 Tested up to: 3.9.1
 Stable tag: 1.2.0
 License: GNU AGPLv3
