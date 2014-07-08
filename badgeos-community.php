@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: BadgeOS Community Add-On
- * Plugin URI: http://www.learningtimes.com/
+ * Plugin URI: http://www.badgeos.org/
  * Description: This BadgeOS add-on integrates BadgeOS features with BuddyPress and bbPress.
  * Tags: buddypress
- * Author: Credly
+ * Author: LearningTimes, LLC
  * Version: 1.2.0
  * Author URI: https://credly.com/
  * License: GNU AGPL
