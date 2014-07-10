@@ -42,11 +42,14 @@ class BadgeOS_Community {
 		// Run our activation
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
 
-		// If BadgeOS is unavailable, deactivate our plugin
-		add_action( 'admin_notices', array( $this, 'maybe_disable_plugin' ) );
+		// Load all the important bits
+		add_action( 'badgeos_settings', array( $this, 'settings' ) );
 		add_action( 'plugins_loaded', array( $this, 'includes' ) );
 		add_action( 'bp_include', array( $this, 'bp_include' ) );
 		add_action( 'wp_print_scripts', array( $this, 'enqueue_scripts' ) );
+
+		// If BadgeOS is unavailable, deactivate our plugin
+		add_action( 'admin_notices', array( $this, 'maybe_disable_plugin' ) );
 
 		// BuddyPress Action Hooks
 		$this->community_triggers = array(
@@ -124,6 +127,38 @@ class BadgeOS_Community {
 			wp_enqueue_style( 'badgeos-front' );
 		}
 	}
+
+	/**
+	 * Register add-on settings.
+	 *
+	 * @since 1.0.0
+	 */
+	function settings( $settings = array() ) {
+
+		// Bail early if not a multisite installation.
+		if ( ! is_multisite() ) {
+			return;
+		}
+		?>
+		<tr>
+			<td colspan="2">
+				<hr/>
+				<h2><?php _e( 'Community Add-on Settings', 'badgeos-congrats' ); ?></h2>
+			</td>
+		</tr>
+		<tr valign="top">
+			<th scope="row"><?php _e( 'BuddyPress Profile:', 'badgeos-congrats' ); ?></th>
+			<td>
+				<p>
+					<label>
+						<input type="checkbox" name="badgeos_settings[badgeos_community_show_all]" value="true" <?php isset( $settings['badgeos_community_show_all'] ) ? checked( $settings['badgeos_community_show_all'], 'true' ) : ''; ?> />
+						<?php _e( 'Display achievements earned across all sites on this network.', 'badgeos-community' ); ?>
+					</label>
+				</p>
+			</td>
+		</tr>
+		<?php
+	} /* settings() */
 
 	/**
 	 * Activation hook for the plugin.
