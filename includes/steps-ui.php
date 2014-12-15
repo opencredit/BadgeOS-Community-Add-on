@@ -35,7 +35,7 @@ add_filter( 'badgeos_get_step_requirements', 'badgeos_bp_step_requirements', 10,
  * @return array           The updated triggers array
  */
 function badgeos_bp_activity_triggers( $triggers ) {
-	$triggers['community_trigger'] = 'Community Activity';
+	$triggers['community_trigger'] = __( 'Community Activity', 'badgeos-community' );
 	return $triggers;
 }
 add_filter( 'badgeos_activity_triggers', 'badgeos_bp_activity_triggers' );
