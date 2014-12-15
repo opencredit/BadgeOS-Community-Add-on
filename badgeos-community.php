@@ -37,7 +37,7 @@ class BadgeOS_Community {
 		$this->directory_url  = plugins_url( 'badgeos-community/' );
 
 		// Load translations
-		load_plugin_textdomain( 'badgeos-community', false, 'badgeos-community/languages' );
+		load_plugin_textdomain( 'badgeos-community', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 		// Run our activation
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
