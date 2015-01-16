@@ -67,7 +67,7 @@ function badgeos_bp_trigger_event( $args = '' ) {
 		$this_trigger
 	) );
 	foreach ( $triggered_achievements as $achievement ) {
-		badgeos_maybe_award_achievement_to_user( $achievement->post_id, $user_ID );
+		badgeos_maybe_award_achievement_to_user( $achievement->post_id, $user_ID, $this_trigger, $blog_id, $args );
 	}
 }
 
