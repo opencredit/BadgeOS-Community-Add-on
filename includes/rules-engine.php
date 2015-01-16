@@ -137,3 +137,8 @@ function badgeos_bp_user_deserves_group_step( $return, $user_id, $achievement_id
 	return $return;
 }
 add_filter( 'user_deserves_achievement', 'badgeos_bp_user_deserves_group_step', 15, 3 );
+
+function badgeos_bp_do_specific_group( $group_id = 0, $user_id = 0 ) {
+	do_action( 'groups_join_specific_group', array( $group_id, $user_id ) );
+}
+add_action( 'groups_join_group', 'badgeos_bp_do_specific_group', 15, 2 );
