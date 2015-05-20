@@ -41,6 +41,9 @@ function badgeos_bp_trigger_event( $args = '' ) {
 	if ( empty( $user_ID ) && 'bp_core_activated_user' == current_filter() )
 		$user_ID = absint( $args );
 
+	if ( 'groups_join_specific_group' == current_filter() )
+		$user_ID = absint( $args[1] );
+
 	$user_data = get_user_by( 'id', $user_ID );
 
 	// Sanity check, if we don't have a user object, bail here
@@ -137,3 +140,14 @@ function badgeos_bp_user_deserves_group_step( $return, $user_id, $achievement_id
 	return $return;
 }
 add_filter( 'user_deserves_achievement', 'badgeos_bp_user_deserves_group_step', 15, 3 );
+
+function badgeos_bp_do_specific_group( $group_id = 0, $user_id = 0 ) {
+	do_action( 'groups_join_specific_group', array( $group_id, $user_id ) );
+}
+
+function badgeos_bp_do_specific_private_group( $user_id = 0, $group_id = 0 ) {
+	do_action( 'groups_join_specific_group', array( $group_id, $user_id ) );
+}
+add_action( 'groups_join_group', 'badgeos_bp_do_specific_group', 15, 2 );
+add_action( 'groups_accept_invite', 'badgeos_bp_do_specific_private_group', 15, 2 );
+add_action( 'groups_membership_accepted', 'badgeos_bp_do_specific_private_group', 15, 2 );
