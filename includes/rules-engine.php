@@ -67,7 +67,7 @@ function badgeos_bp_trigger_event( $args = '' ) {
 		$this_trigger
 	) );
 	foreach ( $triggered_achievements as $achievement ) {
-		badgeos_maybe_award_achievement_to_user( $achievement->post_id, $user_ID );
+		badgeos_maybe_award_achievement_to_user( $achievement->post_id, $user_ID, $this_trigger, $blog_id, $args );
 	}
 }
 
@@ -137,3 +137,8 @@ function badgeos_bp_user_deserves_group_step( $return, $user_id, $achievement_id
 	return $return;
 }
 add_filter( 'user_deserves_achievement', 'badgeos_bp_user_deserves_group_step', 15, 3 );
+
+function badgeos_bp_do_specific_group( $group_id = 0, $user_id = 0 ) {
+	do_action( 'groups_join_specific_group', array( $group_id, $user_id ) );
+}
+add_action( 'groups_join_group', 'badgeos_bp_do_specific_group', 15, 2 );

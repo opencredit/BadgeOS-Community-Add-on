@@ -65,6 +65,7 @@ function badgeos_bp_member_achievements_content() {
  * @since 1.0.0
  */
 function badgeos_community_loader() {
+	$bp = buddypress();
 	$hasbp = function_exists( 'buddypress' ) && buddypress() && ! buddypress()->maintenance_mode && bp_is_active( 'xprofile' );
 	if ( !$hasbp )
 		return;
