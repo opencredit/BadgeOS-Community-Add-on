@@ -178,7 +178,7 @@ class BadgeOS_Community {
 		if ( ! $this->meets_requirements() ) {
 			// Display our error
 			echo '<div id="message" class="error">';
-			echo '<p>' . sprintf( __( 'BadgeOS Community Add-On requires BadgeOS 1.2.0 or greater and has been <a href="%s">deactivated</a>. Please install and activate BadgeOS and then reactivate this plugin.', 'badgeos-community' ), admin_url( 'plugins.php' ) ) . '</p>';
+			echo '<p>' . sprintf( __( 'BadgeOS Community Add-On requires BadgeOS 1.4.0 or greater, and either BuddyPress or bbPress and has been <a href="%s">deactivated</a>. Please install and activate BadgeOS and either BuddyPress or bbPress and then reactivate this plugin.', 'badgeos-community' ), admin_url( 'plugins.php' ) ) . '</p>';
 			echo '</div>';
 
 			// Deactivate our plugin
