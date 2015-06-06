@@ -152,7 +152,7 @@ class BadgeOS_Community_Members extends BP_Component {
 		$query = new WP_Query( $args );
 		if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) : $query->the_post();
-			$arr_achivement_types[$query->post->post_name] = $query->post->ID;
+			$arr_achievement_types[$query->post->post_name] = $query->post->ID;
 			endwhile;
 		}
 
@@ -166,7 +166,7 @@ class BadgeOS_Community_Members extends BP_Component {
 				$name = is_object( $achievement_object ) ? $achievement_object->labels->name : '';
 				$slug = str_replace( ' ', '-', strtolower( $name ) );
 				// Get post_id of earned achievement type slug
-				$post_id = isset( $arr_achivement_types[$achievement_type] ) ? $arr_achivement_types[$achievement_type] : 0;
+				$post_id = isset( $arr_achievement_types[$achievement_type] ) ? $arr_achievement_types[$achievement_type] : 0;
 				if ( $post_id ) {
 
 					//check if this achievement type can be shown on the member profile page
