@@ -85,7 +85,7 @@ function badgeos_bp_step_group_select( $step_id, $post_id ) {
 	echo '<option value="">' . __( 'Select a Group', 'badgeos-community' ) . '</option>';
 
 	// Loop through all existing BP groups and include them here
-	if ( bp_is_active( 'groups' ) ) {
+	if ( function_exists( 'bp_is_active' ) && bp_is_active( 'groups' ) ) {
 		$current_selection = get_post_meta( $step_id, '_badgeos_group_id', true );
 		$bp_groups = groups_get_groups( array( 'show_hidden' => true, 'per_page' => 300 ) );
 		if ( !empty( $bp_groups ) ) {
@@ -120,7 +120,7 @@ function badgeos_bp_save_step( $title, $step_id, $step_data ) {
 		$title = $step_data['community_trigger_label'];
 
 		// If we're looking to join a specific group...
-		if ( 'groups_join_specific_group' == $step_data['community_trigger'] ) {
+		if ( 'groups_join_specific_group' == $step_data['community_trigger'] && function_exists( 'bp_get_group_name' ) ) {
 
 			// Store our group ID in meta
 			update_post_meta( $step_id, '_badgeos_group_id', $step_data['group_id'] );
