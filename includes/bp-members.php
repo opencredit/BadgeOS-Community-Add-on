@@ -14,9 +14,9 @@
  *
  * @since 1.0.0
  */
-function bagdeos_bp_member_achievements() {
-	add_action( 'bp_template_content', 'bagdeos_bp_member_achievements_content' );
-	bp_core_load_template( apply_filters( 'bagdeos_bp_member_achievements', 'members/single/plugins' ) );
+function badgeos_bp_member_achievements() {
+	add_action( 'bp_template_content', 'badgeos_bp_member_achievements_content' );
+	bp_core_load_template( apply_filters( 'badgeos_bp_member_achievements', 'members/single/plugins' ) );
 }
 
 /**
@@ -24,7 +24,7 @@ function bagdeos_bp_member_achievements() {
  *
  * @since 1.0.0
  */
-function bagdeos_bp_member_achievements_content() {
+function badgeos_bp_member_achievements_content() {
 
 	$achievement_types = badgeos_get_network_achievement_types_for_user( bp_displayed_user_id() );
 	// Eliminate step cpt from array
@@ -180,7 +180,7 @@ class BadgeOS_Community_Members extends BP_Component {
 								'name'                => __( 'Achievements', 'badgeos-community' ),
 								'slug'                => $this->slug,
 								'position'            => 100,
-								'screen_function'     => 'bagdeos_bp_member_achievements',
+								'screen_function'     => 'badgeos_bp_member_achievements',
 								'default_subnav_slug' => $slug
 							);
 							$main = true;
@@ -191,7 +191,7 @@ class BadgeOS_Community_Members extends BP_Component {
 							'slug'            => $slug,
 							'parent_url'      => $parent_url,
 							'parent_slug'     => $this->slug,
-							'screen_function' => 'bagdeos_bp_member_achievements',
+							'screen_function' => 'badgeos_bp_member_achievements',
 							'position'        => 10,
 						);
 
@@ -207,7 +207,7 @@ class BadgeOS_Community_Members extends BP_Component {
 				'name'                => __( 'Achievements', 'badgeos-community' ),
 				'slug'                => $this->slug,
 				'position'            => 100,
-				'screen_function'     => 'bagdeos_bp_member_achievements',
+				'screen_function'     => 'badgeos_bp_member_achievements',
 				'default_subnav_slug' => 'achievements'
 			);
 
@@ -216,7 +216,7 @@ class BadgeOS_Community_Members extends BP_Component {
 				'slug'            => 'achievements',
 				'parent_url'      => $parent_url,
 				'parent_slug'     => $this->slug,
-				'screen_function' => 'bagdeos_bp_member_achievements',
+				'screen_function' => 'badgeos_bp_member_achievements',
 				'position'        => 10,
 			);
 		}
