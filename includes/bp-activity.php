@@ -43,6 +43,9 @@ function badgeos_award_achievement_bp_activity( $user_id, $achievement_id, $this
 	$content .= '<div class="badgeos-item-description">' . wpautop( $post->post_excerpt ) . '</div>';
 	$content .= '</div>';
 
+	# Bypass checking our activity items from moderation, as we know we are legit.
+	add_filter( 'bp_bypass_check_for_moderation', '__return_true' );
+
 	// Insert the activity
 	bp_activity_add( apply_filters(
 		'badgeos_award_achievement_bp_activity_details',
