@@ -172,6 +172,9 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 * Fix: Prevent render issues in Steps UI when BuddyPress isn't activated.
 * Fix: Renamed bagdeos_bp_member_achievements filter to badgeos_bp_member_achievements to fix typo.
 * Fix: Textdomain path should now load translations more accurately.
+* Fix: Changed calls from add_action to add_filter to match hook type.
+* Fix: Pass in trigger, site ID, and args into earned achievement check.
+* Fix: Create our own groups_join_specific_group action to allow for awarding of that available trigger.
 
 = 1.2.0 =
 * New: Submission lists can now be filtered by Group ID.
@@ -206,6 +209,9 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 * Fix: Prevent render issues in Steps UI when BuddyPress isn't activated.
 * Fix: Renamed bagdeos_bp_member_achievements filter to badgeos_bp_member_achievements to fix typo.
 * Fix: Textdomain path should now load translations more accurately.
+* Fix: Changed calls from add_action to add_filter to match hook type.
+* Fix: Pass in trigger, site ID, and args into earned achievement check.
+* Fix: Create our own groups_join_specific_group action to allow for awarding of that available trigger.
 
 = 1.2.0 =
 * New: Submission lists can now be filtered by Group ID.
