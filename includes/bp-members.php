@@ -81,6 +81,13 @@ add_action( 'bp_init', 'badgeos_community_loader', 1 );
  * @since 1.0.0
  */
 function badgeos_bp_core_general_settings_before_submit() {
+	global $badgeos_credly;
+	$credly_settings = $badgeos_credly->credly_settings;
+
+	if ( 'false' == $credly_settings['credly_enable'] ) {
+		return;
+	}
+
 	$credly_user_enable = get_user_meta( bp_displayed_user_id(), 'credly_user_enable', true );?>
 	<label for="credly"><?php _e( 'Badge Sharing', 'badgeos-community' ); ?></label>
 	<input id="credly" type="checkbox" value="true" <?php checked( $credly_user_enable, 'true' ); ?> name="credly_user_enable">
