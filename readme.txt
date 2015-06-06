@@ -3,8 +3,8 @@ Contributors: learningtimes, badgeos, credly, webdevstudios, Messenlehner, rzen,
 Donate link: http://badgeos.org/contribute/donate/
 Tags: badge, badges, openbadges, credly, OBI, mozilla, open badges, achievement, award, reward, engagement, submission, nomination, buddypress, community, API, open credit, credit, bbpress, plugin
 Requires at least: WordPress 3.5, BuddyPress 1.7 & BadgeOS 1.2
-Tested up to: 3.9.1
-Stable tag: 1.2.0
+Tested up to: 4.2.2
+Stable tag: 1.2.1
 License: GNU AGPLv3
 License URI: http://www.gnu.org/licenses/agpl-3.0.html
 
@@ -165,6 +165,14 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 == Changelog ==
 
+= 1.2.1 =
+* Fix: Prevent activity list items from being flagged as spam due to too many links.
+* Fix: Hide frontend profile "Send to Credly" checkbox if Credly integration is disabled.
+* Fix: Add checks for BuddyPress or bbPress being enabled before able to enable Community Add-on.
+* Fix: Prevent render issues in Steps UI when BuddyPress isn't activated.
+* Fix: Renamed bagdeos_bp_member_achievements filter to badgeos_bp_member_achievements to fix typo.
+* Fix: Textdomain path should now load translations more accurately.
+
 = 1.2.0 =
 * New: Submission lists can now be filtered by Group ID.
 * New: Added filter badgeos_award_achievement_bp_activity_details for altering the BuddyPress activity stream data before insertion.
@@ -190,6 +198,14 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 
 == Upgrade Notice ==
+
+= 1.2.1 =
+* Fix: Prevent activity list items from being flagged as spam due to too many links.
+* Fix: Hide frontend profile "Send to Credly" checkbox if Credly integration is disabled.
+* Fix: Add checks for BuddyPress or bbPress being enabled before able to enable Community Add-on.
+* Fix: Prevent render issues in Steps UI when BuddyPress isn't activated.
+* Fix: Renamed bagdeos_bp_member_achievements filter to badgeos_bp_member_achievements to fix typo.
+* Fix: Textdomain path should now load translations more accurately.
 
 = 1.2.0 =
 * New: Submission lists can now be filtered by Group ID.
