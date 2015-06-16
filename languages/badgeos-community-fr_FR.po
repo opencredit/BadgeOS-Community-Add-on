@@ -1,0 +1,181 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: BadgeOS Community Add-On\n"
+"POT-Creation-Date: 2013-12-01 10:34-0600\n"
+"PO-Revision-Date: 2015-06-03 17:46-0500\n"
+"Last-Translator: Julien Lamarche <jlam@credil.org>\n"
+"Language-Team: Michael Beckwith <michael.d.beckwith@gmail.com>\n"
+"Language: en_EN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6beta3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: badgeos-community.php:53
+msgid "Profile/Independent Actions"
+msgstr ""
+
+#: badgeos-community.php:54
+msgid "Activated Account"
+msgstr ""
+
+#: badgeos-community.php:55
+msgid "Change Profile Avatar"
+msgstr ""
+
+#: badgeos-community.php:56
+msgid "Update Profile Information"
+msgstr ""
+
+#: badgeos-community.php:58
+msgid "Social Actions"
+msgstr ""
+
+#: badgeos-community.php:59
+msgid "Write an Activity Stream message"
+msgstr ""
+
+#: badgeos-community.php:60
+msgid "Write a Group Activity Stream message"
+msgstr ""
+
+#: badgeos-community.php:61
+msgid "Reply to an item in an Activity Stream"
+msgstr ""
+
+#: badgeos-community.php:62
+msgid "Favorite an Activity Stream item"
+msgstr ""
+
+#: badgeos-community.php:63
+msgid "Send a Friendship Request"
+msgstr ""
+
+#: badgeos-community.php:64
+msgid "Accept a Friendship Request"
+msgstr ""
+
+#: badgeos-community.php:65
+msgid "Send/Reply to a Private Message"
+msgstr ""
+
+#: badgeos-community.php:67
+msgid "Group Actions"
+msgstr ""
+
+#: badgeos-community.php:68
+msgid "Create a Group"
+msgstr ""
+
+#: badgeos-community.php:69
+msgid "Join a Group"
+msgstr ""
+
+#: badgeos-community.php:70
+msgid "Join a Specific Group"
+msgstr ""
+
+#: badgeos-community.php:71
+msgid "Invite someone to Join a Group"
+msgstr ""
+
+#: badgeos-community.php:72
+msgid "Promoted to Group Moderator/Administrator"
+msgstr ""
+
+#: badgeos-community.php:73
+msgid "Promote another Group Member to Moderator/Administrator"
+msgstr ""
+
+#: badgeos-community.php:75
+msgid "Discussion Forum Actions"
+msgstr ""
+
+#: badgeos-community.php:76
+msgid "Create a Forum Topic"
+msgstr ""
+
+#: badgeos-community.php:77
+msgid "Reply to a Forum Topic"
+msgstr ""
+
+#: badgeos-community.php:179
+#, php-format
+msgid "BadgeOS Community Add-On requires BadgeOS 1.2.0 or greater and has been <a href=\"%s\">deactivated</a>. Please install and activate BadgeOS and then reactivate this plugin."
+msgstr ""
+
+#: badgeos-community.php:181
+#, php-format
+msgid "BadgeOS Community Add-On requires BuddyPress and has been <a href=\"%s\">deactivated</a>. Please install and activate BuddyPress and then reactivate this plugin."
+msgstr ""
+
+#: includes/bp-activity.php:46
+#, php-format
+msgid "%1$s earned a %2$s: %3$s"
+msgstr ""
+
+#: includes/bp-activity.php:89
+msgid "BuddyPress Member Activity"
+msgstr ""
+
+#: includes/bp-activity.php:96
+msgid "Activity Posts"
+msgstr ""
+
+#: includes/bp-activity.php:97
+msgid "When a user earns any achievements of this type create an activity entry on their profile."
+msgstr ""
+
+#: includes/bp-activity.php:102
+msgid "Profile Achievements"
+msgstr ""
+
+#: includes/bp-activity.php:103
+msgid "Display earned achievements of this type in the user profile \"Achievements\" section."
+msgstr ""
+
+#: includes/bp-members.php:86
+msgid "Badge Sharing"
+msgstr ""
+
+#: includes/bp-members.php:88
+msgid "Send eligible earned badges to Credly"
+msgstr ""
+
+#: includes/bp-members.php:101
+msgid "Your settings have been saved."
+msgstr ""
+
+#: includes/bp-members.php:118
+msgid "BadgeOS"
+msgstr ""
+
+#: includes/bp-members.php:181
+#: includes/bp-members.php:208
+#: includes/bp-members.php:216
+msgid "Achievements"
+msgstr "Accomplissements"
+
+#: includes/rules-engine.php:57
+#, php-format
+msgid "%1$s triggered %2$s (%3$dx)"
+msgstr ""
+
+#: includes/steps-ui.php:54
+msgid "Select a Community Trigger"
+msgstr ""
+
+#: includes/steps-ui.php:85
+msgid "Select a Group"
+msgstr ""
+
+#: includes/steps-ui.php:129
+#, php-format
+msgid "Join group \"%s\""
+msgstr ""
+
