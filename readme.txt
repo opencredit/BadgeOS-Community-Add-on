@@ -166,15 +166,15 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 == Changelog ==
 
 = 1.2.1 =
-* Fix: Prevent activity list items from being flagged as spam due to too many links.
-* Fix: Hide frontend profile "Send to Credly" checkbox if Credly integration is disabled.
-* Fix: Add checks for BuddyPress or bbPress being enabled before able to enable Community Add-on.
-* Fix: Prevent render issues in Steps UI when BuddyPress isn't activated.
-* Fix: Renamed bagdeos_bp_member_achievements filter to badgeos_bp_member_achievements to fix typo.
-* Fix: Textdomain path should now load translations more accurately.
-* Fix: Changed calls from add_action to add_filter to match hook type.
-* Fix: Pass in trigger, site ID, and args into earned achievement check.
-* Fix: Create our own groups_join_specific_group action to allow for awarding of that available trigger.
+* Fixed: Prevent activity list items from being flagged as spam due to too many links.
+* Fixed: Hide frontend profile "Send to Credly" checkbox if Credly integration is disabled.
+* Fixed: Add checks for BuddyPress or bbPress being enabled before able to enable Community Add-on.
+* Fixed: Prevent render issues in Steps UI when BuddyPress isn't activated.
+* Fixed: Renamed bagdeos_bp_member_achievements filter to badgeos_bp_member_achievements to fix typo.
+* Fixed: Textdomain path should now load translations more accurately.
+* Fixed: Changed calls from add_action to add_filter to match hook type.
+* Fixed: Pass in trigger, site ID, and args into earned achievement check.
+* Fixed: Create our own groups_join_specific_group action to allow for awarding of that available trigger.
 
 = 1.2.0 =
 * New: Submission lists can now be filtered by Group ID.
@@ -203,15 +203,15 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 == Upgrade Notice ==
 
 = 1.2.1 =
-* Fix: Prevent activity list items from being flagged as spam due to too many links.
-* Fix: Hide frontend profile "Send to Credly" checkbox if Credly integration is disabled.
-* Fix: Add checks for BuddyPress or bbPress being enabled before able to enable Community Add-on.
-* Fix: Prevent render issues in Steps UI when BuddyPress isn't activated.
-* Fix: Renamed bagdeos_bp_member_achievements filter to badgeos_bp_member_achievements to fix typo.
-* Fix: Textdomain path should now load translations more accurately.
-* Fix: Changed calls from add_action to add_filter to match hook type.
-* Fix: Pass in trigger, site ID, and args into earned achievement check.
-* Fix: Create our own groups_join_specific_group action to allow for awarding of that available trigger.
+* Fixed: Prevent activity list items from being flagged as spam due to too many links.
+* Fixed: Hide frontend profile "Send to Credly" checkbox if Credly integration is disabled.
+* Fixed: Add checks for BuddyPress or bbPress being enabled before able to enable Community Add-on.
+* Fixed: Prevent render issues in Steps UI when BuddyPress isn't activated.
+* Fixed: Renamed bagdeos_bp_member_achievements filter to badgeos_bp_member_achievements to fix typo.
+* Fixed: Textdomain path should now load translations more accurately.
+* Fixed: Changed calls from add_action to add_filter to match hook type.
+* Fixed: Pass in trigger, site ID, and args into earned achievement check.
+* Fixed: Create our own groups_join_specific_group action to allow for awarding of that available trigger.
 
 = 1.2.0 =
 * New: Submission lists can now be filtered by Group ID.
