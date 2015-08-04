@@ -1,18 +1,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BadgeOS Community Add-On\n"
-"POT-Creation-Date: 2013-12-01 10:34-0600\n"
-"PO-Revision-Date: 2015-06-03 17:46-0500\n"
-"Last-Translator: Julien Lamarche <jlam@credil.org>\n"
+"POT-Creation-Date: 2015-08-04 17:40-0500\n"
+"PO-Revision-Date: 2015-08-04 17:40-0500\n"
+"Last-Translator: Michael Beckwith <michael.d.beckwith@gmail.com>\n"
 "Language-Team: Michael Beckwith <michael.d.beckwith@gmail.com>\n"
 "Language: en_EN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6beta3\n"
+"X-Generator: Poedit 1.8.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -104,66 +105,72 @@ msgstr ""
 msgid "Reply to a Forum Topic"
 msgstr ""
 
-#: badgeos-community.php:179
-#, php-format
-msgid "BadgeOS Community Add-On requires BadgeOS 1.2.0 or greater and has been <a href=\"%s\">deactivated</a>. Please install and activate BadgeOS and then reactivate this plugin."
-msgstr ""
-
 #: badgeos-community.php:181
 #, php-format
-msgid "BadgeOS Community Add-On requires BuddyPress and has been <a href=\"%s\">deactivated</a>. Please install and activate BuddyPress and then reactivate this plugin."
+msgid ""
+"BadgeOS Community Add-On requires BadgeOS 1.4.0 or greater, and either "
+"BuddyPress or bbPress and has been <a href=\"%s\">deactivated</a>. Please "
+"install and activate BadgeOS and either BuddyPress or bbPress and then "
+"reactivate this plugin."
 msgstr ""
 
-#: includes/bp-activity.php:46
+#: includes/bp-activity.php:53
 #, php-format
-msgid "%1$s earned a %2$s: %3$s"
-msgstr ""
-
-#: includes/bp-activity.php:89
-msgid "BuddyPress Member Activity"
-msgstr ""
-
-#: includes/bp-activity.php:96
-msgid "Activity Posts"
-msgstr ""
-
-#: includes/bp-activity.php:97
-msgid "When a user earns any achievements of this type create an activity entry on their profile."
-msgstr ""
-
-#: includes/bp-activity.php:102
-msgid "Profile Achievements"
+msgid "%1$s earned the %2$s: %3$s"
 msgstr ""
 
 #: includes/bp-activity.php:103
-msgid "Display earned achievements of this type in the user profile \"Achievements\" section."
+msgid "BuddyPress Member Activity"
 msgstr ""
 
-#: includes/bp-members.php:86
+#: includes/bp-activity.php:110
+msgid "Activity Posts"
+msgstr ""
+
+#: includes/bp-activity.php:111
+msgid ""
+"When a user earns any achievements of this type create an activity entry on "
+"their profile."
+msgstr ""
+
+#: includes/bp-activity.php:116
+msgid "Profile Achievements"
+msgstr ""
+
+#: includes/bp-activity.php:117
+msgid ""
+"Display earned achievements of this type in the user profile \"Achievements"
+"\" section."
+msgstr ""
+
+#: includes/bp-members.php:93
 msgid "Badge Sharing"
 msgstr ""
 
-#: includes/bp-members.php:88
+#: includes/bp-members.php:95
 msgid "Send eligible earned badges to Credly"
 msgstr ""
 
-#: includes/bp-members.php:101
+#: includes/bp-members.php:108
 msgid "Your settings have been saved."
 msgstr ""
 
-#: includes/bp-members.php:118
+#: includes/bp-members.php:125
 msgid "BadgeOS"
 msgstr ""
 
-#: includes/bp-members.php:181
-#: includes/bp-members.php:208
-#: includes/bp-members.php:216
+#: includes/bp-members.php:188 includes/bp-members.php:215
+#: includes/bp-members.php:223
 msgid "Achievements"
 msgstr "Accomplissements"
 
 #: includes/rules-engine.php:57
 #, php-format
 msgid "%1$s triggered %2$s (%3$dx)"
+msgstr ""
+
+#: includes/steps-ui.php:38
+msgid "Community Activity"
 msgstr ""
 
 #: includes/steps-ui.php:54
@@ -179,3 +186,18 @@ msgstr ""
 msgid "Join group \"%s\""
 msgstr ""
 
+#: includes/submission-filters.php:39
+msgid "Group:"
+msgstr ""
+
+#: includes/submission-filters.php:41
+msgid "All"
+msgstr ""
+
+#: includes/submission-filters.php:110
+msgid "Group ID"
+msgstr ""
+
+#: includes/submission-filters.php:112
+msgid "BuddyPress Group ID"
+msgstr ""
