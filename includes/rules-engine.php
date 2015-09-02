@@ -169,6 +169,15 @@ function badgeos_bp_do_specific_group( $group_id = 0, $user_id = 0 ) {
 }
 add_action( 'groups_join_group', 'badgeos_bp_do_specific_group', 15, 2 );
 
+/**
+ * Fires our group_join_specific_group action for joining Membership request or Hidden groups.
+ *
+ * @since 1.2.2
+ *
+ * @param int       $user_id  ID of the user joining the group.
+ * @param int       $group_id ID of the group being joined.
+ * @param bool|true $accepted Whether or not the membership was accepted. Default true.
+ */
 function badgeos_bp_do_specific_group_requested_invited( $user_id = 0, $group_id = 0, $accepted = true ) {
     do_action( 'groups_join_specific_group', array( $group_id, $user_id ) );
 }
