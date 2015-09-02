@@ -49,8 +49,9 @@ function badgeos_bp_trigger_event( $args = '' ) {
 	$user_data = get_user_by( 'id', $user_ID );
 
 	// Sanity check, if we don't have a user object, bail here
-	if ( ! is_object( $user_data ) )
-		return $args[ 0 ];
+	if ( ! is_object( $user_data ) ) {
+		return $args[0];
+	}
 
 	// Grab the current trigger
 	$this_trigger = current_filter();
