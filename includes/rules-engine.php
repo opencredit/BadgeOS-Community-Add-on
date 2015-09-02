@@ -73,7 +73,16 @@ function badgeos_bp_trigger_event( $args = '' ) {
 		$this_trigger
 	) );
 	foreach ( $triggered_achievements as $achievement ) {
-		badgeos_maybe_award_achievement_to_user( $achievement->post_id, $user_ID, $this_trigger, $blog_id, $args );
+		# Since we are triggering multiple times based on group joining, we need to check if we're on the groups_join_specific_group filter.
+		if ( 'groups_join_specific_group' == current_filter() ) {
+			# We only want to trigger this when we're checking for the appropriate triggered group ID.
+			$group_id = get_post_meta( $achievement->post_id, '_badgeos_group_id', true );
+			if ( $group_id == $args[0] ) {
+				badgeos_maybe_award_achievement_to_user( $achievement->post_id, $user_ID, $this_trigger, $blog_id, $args );
+			}
+		} else {
+			badgeos_maybe_award_achievement_to_user( $achievement->post_id, $user_ID, $this_trigger, $blog_id, $args );
+		}
 	}
 }
 
