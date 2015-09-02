@@ -156,6 +156,12 @@ function badgeos_bp_user_deserves_group_step( $return, $user_id, $achievement_id
 }
 add_filter( 'user_deserves_achievement', 'badgeos_bp_user_deserves_group_step', 15, 3 );
 
+/**
+ * Fires our group_join_specific_group action for joining public groups.
+ *
+ * @param int $group_id ID of the public group being joined.
+ * @param int $user_id ID of the user joining the group.
+ */
 function badgeos_bp_do_specific_group( $group_id = 0, $user_id = 0 ) {
 	do_action( 'groups_join_specific_group', array( $group_id, $user_id ) );
 }
