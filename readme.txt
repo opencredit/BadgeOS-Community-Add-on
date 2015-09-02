@@ -4,7 +4,7 @@ Donate link: http://badgeos.org/contribute/donate/
 Tags: badge, badges, openbadges, credly, OBI, mozilla, open badges, achievement, award, reward, engagement, submission, nomination, buddypress, community, API, open credit, credit, bbpress, plugin
 Requires at least: WordPress 3.6.0, BuddyPress 1.7.0 & BadgeOS 1.4.0
 Tested up to: 4.2.2
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GNU AGPLv3
 License URI: http://www.gnu.org/licenses/agpl-3.0.html
 
@@ -165,6 +165,9 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 == Changelog ==
 
+= 1.2.2 =
+Fixed: Add groups_join_specific_group triggers for groups that are by request or invite only.
+
 = 1.2.1 =
 * Fixed: Prevent activity list items from being flagged as spam due to too many links.
 * Fixed: Hide frontend profile "Send to Credly" checkbox if Credly integration is disabled.
@@ -201,6 +204,9 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 
 == Upgrade Notice ==
+
+= 1.2.2 =
+Fixed: Add groups_join_specific_group triggers for groups that are by request or invite only.
 
 = 1.2.1 =
 * Fixed: Prevent activity list items from being flagged as spam due to too many links.
