@@ -157,3 +157,9 @@ function badgeos_bp_do_specific_group( $group_id = 0, $user_id = 0 ) {
 	do_action( 'groups_join_specific_group', array( $group_id, $user_id ) );
 }
 add_action( 'groups_join_group', 'badgeos_bp_do_specific_group', 15, 2 );
+
+function badgeos_bp_do_specific_group_requested_invited( $user_id = 0, $group_id = 0, $accepted = true ) {
+    do_action( 'groups_join_specific_group', array( $group_id, $user_id ) );
+}
+add_action( 'groups_membership_accepted', 'badgeos_bp_do_specific_group_requested_invited', 15, 3 );
+add_action( 'groups_accept_invite', 'badgeos_bp_do_specific_group_requested_invited', 15, 3 );
