@@ -38,8 +38,9 @@ function badgeos_bp_trigger_event( $args = '' ) {
 	// Setup all our important variables
 	global $user_ID, $blog_id, $wpdb;
 
-	if ( empty( $user_ID ) && 'bp_core_activated_user' == current_filter() )
+	if ( empty( $user_ID ) && 'bp_core_activated_user' == current_filter() ) {
 		$user_ID = absint( $args );
+	}
 
 	$user_data = get_user_by( 'id', $user_ID );
 
