@@ -42,6 +42,10 @@ function badgeos_bp_trigger_event( $args = '' ) {
 		$user_ID = absint( $args );
 	}
 
+	if ( 'groups_join_specific_group' == current_filter() ) {
+		$user_ID = absint( $args[1] );
+	}
+
 	$user_data = get_user_by( 'id', $user_ID );
 
 	// Sanity check, if we don't have a user object, bail here
