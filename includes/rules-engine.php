@@ -159,6 +159,8 @@ add_filter( 'user_deserves_achievement', 'badgeos_bp_user_deserves_group_step', 
 /**
  * Fires our group_join_specific_group action for joining public groups.
  *
+ * @since 1.2.1
+ *
  * @param int $group_id ID of the public group being joined.
  * @param int $user_id ID of the user joining the group.
  */
