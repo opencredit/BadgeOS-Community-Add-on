@@ -145,8 +145,14 @@ class BadgeOS_Community_Members extends BP_Component {
 	// Member Profile Menu
 	public function setup_nav( $main_nav = '', $sub_nav = '' ) {
 
-		if ( ! is_user_logged_in() && ! bp_displayed_user_id() )
+		if ( ! is_user_logged_in() && ! bp_displayed_user_id() ) {
 			return;
+		}
+
+		# We don't need to be setting up nav in admin area.
+		if ( is_admin() ) {
+			return;
+		}
 
 		$parent_url = trailingslashit( bp_displayed_user_domain() . $this->slug );
 
