@@ -177,7 +177,7 @@ class BadgeOS_Community_Members extends BP_Component {
 					$can_bp_member_menu = get_post_meta( $post_id, '_badgeos_show_bp_member_menu', true );
 					if ( $slug && $can_bp_member_menu ) {
 
-						// Only run once to set main nav and defautl sub nav
+						// Only run once to set main nav and default sub nav
 						if ( empty( $main ) ) {
 							// Add to the main navigation
 							$main_nav = array(
