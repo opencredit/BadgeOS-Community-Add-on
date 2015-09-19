@@ -134,7 +134,11 @@ class BadgeOS_Community_Members extends BP_Component {
 		parent::setup_actions();
 	}
 
-	// Member Profile Menu
+	/*
+	 * Member Profile Menu.
+	 *
+	 * Sets up the menu and submenu items for the BuddyPress profile tabs.
+	 */
 	public function setup_nav( $main_nav = '', $sub_nav = '' ) {
 
 		if ( ! is_user_logged_in() && ! bp_displayed_user_id() )
