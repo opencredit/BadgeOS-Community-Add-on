@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: BadgeOS Community Add-On
- * Plugin URI: http://www.learningtimes.com/
+ * Plugin URI: http://www.badgeos.org/
  * Description: This BadgeOS add-on integrates BadgeOS features with BuddyPress and bbPress.
  * Tags: buddypress
  * Author: Credly
- * Version: 1.2.0
+ * Version: 1.2.2
  * Author URI: https://credly.com/
  * License: GNU AGPL
  * Text Domain: badgeos-community
@@ -37,7 +37,7 @@ class BadgeOS_Community {
 		$this->directory_url  = plugins_url( 'badgeos-community/' );
 
 		// Load translations
-		load_plugin_textdomain( 'badgeos-community', false, 'badgeos-community/languages' );
+		load_plugin_textdomain( 'badgeos-community', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 		// Run our activation
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
@@ -161,10 +161,11 @@ class BadgeOS_Community {
 	 */
 	public static function meets_requirements() {
 
-		if ( class_exists('BadgeOS') && version_compare( BadgeOS::$version, '1.4.0', '>=' ) )
+		if ( class_exists('BadgeOS') && version_compare( BadgeOS::$version, '1.4.0', '>=' ) && ( class_exists( 'BuddyPress' ) || class_exists( 'bbPress' ) ) ) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 
 	}
 
@@ -177,7 +178,7 @@ class BadgeOS_Community {
 		if ( ! $this->meets_requirements() ) {
 			// Display our error
 			echo '<div id="message" class="error">';
-			echo '<p>' . sprintf( __( 'BadgeOS Community Add-On requires BadgeOS 1.2.0 or greater and has been <a href="%s">deactivated</a>. Please install and activate BadgeOS and then reactivate this plugin.', 'badgeos-community' ), admin_url( 'plugins.php' ) ) . '</p>';
+			echo '<p>' . sprintf( __( 'BadgeOS Community Add-On requires BadgeOS 1.4.0 or greater, and either BuddyPress or bbPress and has been <a href="%s">deactivated</a>. Please install and activate BadgeOS and either BuddyPress or bbPress and then reactivate this plugin.', 'badgeos-community' ), admin_url( 'plugins.php' ) ) . '</p>';
 			echo '</div>';
 
 			// Deactivate our plugin

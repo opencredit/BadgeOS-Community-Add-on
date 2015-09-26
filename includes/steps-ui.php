@@ -35,7 +35,7 @@ add_filter( 'badgeos_get_step_requirements', 'badgeos_bp_step_requirements', 10,
  * @return array           The updated triggers array
  */
 function badgeos_bp_activity_triggers( $triggers ) {
-	$triggers['community_trigger'] = 'Community Activity';
+	$triggers['community_trigger'] = __( 'Community Activity', 'badgeos-community' );
 	return $triggers;
 }
 add_filter( 'badgeos_activity_triggers', 'badgeos_bp_activity_triggers' );
@@ -50,7 +50,7 @@ add_filter( 'badgeos_activity_triggers', 'badgeos_bp_activity_triggers' );
 function badgeos_bp_step_community_trigger_select( $step_id, $post_id ) {
 
 	// Setup our select input
-	echo '<select name="community_trigger" class="select-community-trigger">';
+	echo '<select name="community_trigger" class="select-community-trigger select-community-trigger-' . $post_id . '">';
 	echo '<option value="">' . __( 'Select a Community Trigger', 'badgeos-community' ) . '</option>';
 
 	// Loop through all of our community trigger groups
@@ -81,11 +81,11 @@ add_action( 'badgeos_steps_ui_html_after_trigger_type', 'badgeos_bp_step_communi
 function badgeos_bp_step_group_select( $step_id, $post_id ) {
 
 	// Setup our select input
-	echo '<select name="group_id" class="select-group-id">';
+	echo '<select name="group_id" class="select-group-id select-group-id-' . $post_id . '">';
 	echo '<option value="">' . __( 'Select a Group', 'badgeos-community' ) . '</option>';
 
 	// Loop through all existing BP groups and include them here
-	if ( bp_is_active( 'groups' ) ) {
+	if ( function_exists( 'bp_is_active' ) && bp_is_active( 'groups' ) ) {
 		$current_selection = get_post_meta( $step_id, '_badgeos_group_id', true );
 		$bp_groups = groups_get_groups( array( 'show_hidden' => true, 'per_page' => 300 ) );
 		if ( !empty( $bp_groups ) ) {
@@ -120,7 +120,7 @@ function badgeos_bp_save_step( $title, $step_id, $step_data ) {
 		$title = $step_data['community_trigger_label'];
 
 		// If we're looking to join a specific group...
-		if ( 'groups_join_specific_group' == $step_data['community_trigger'] ) {
+		if ( 'groups_join_specific_group' == $step_data['community_trigger'] && function_exists( 'bp_get_group_name' ) ) {
 
 			// Store our group ID in meta
 			update_post_meta( $step_id, '_badgeos_group_id', $step_data['group_id'] );

@@ -14,9 +14,9 @@
  *
  * @since 1.0.0
  */
-function bagdeos_bp_member_achievements() {
-	add_action( 'bp_template_content', 'bagdeos_bp_member_achievements_content' );
-	bp_core_load_template( apply_filters( 'bagdeos_bp_member_achievements', 'members/single/plugins' ) );
+function badgeos_bp_member_achievements() {
+	add_action( 'bp_template_content', 'badgeos_bp_member_achievements_content' );
+	bp_core_load_template( apply_filters( 'badgeos_bp_member_achievements', 'members/single/plugins' ) );
 }
 
 /**
@@ -24,7 +24,7 @@ function bagdeos_bp_member_achievements() {
  *
  * @since 1.0.0
  */
-function bagdeos_bp_member_achievements_content() {
+function badgeos_bp_member_achievements_content() {
 
 	$achievement_types = badgeos_get_network_achievement_types_for_user( bp_displayed_user_id() );
 	// Eliminate step cpt from array
@@ -65,6 +65,7 @@ function bagdeos_bp_member_achievements_content() {
  * @since 1.0.0
  */
 function badgeos_community_loader() {
+	$bp = buddypress();
 	$hasbp = function_exists( 'buddypress' ) && buddypress() && ! buddypress()->maintenance_mode && bp_is_active( 'xprofile' );
 	if ( !$hasbp )
 		return;
@@ -81,6 +82,13 @@ add_action( 'bp_init', 'badgeos_community_loader', 1 );
  * @since 1.0.0
  */
 function badgeos_bp_core_general_settings_before_submit() {
+	global $badgeos_credly;
+	$credly_settings = $badgeos_credly->credly_settings;
+
+	if ( 'false' == $credly_settings['credly_enable'] ) {
+		return;
+	}
+
 	$credly_user_enable = get_user_meta( bp_displayed_user_id(), 'credly_user_enable', true );?>
 	<label for="credly"><?php _e( 'Badge Sharing', 'badgeos-community' ); ?></label>
 	<input id="credly" type="checkbox" value="true" <?php checked( $credly_user_enable, 'true' ); ?> name="credly_user_enable">
@@ -156,7 +164,7 @@ class BadgeOS_Community_Members extends BP_Component {
 		$query = new WP_Query( $args );
 		if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) : $query->the_post();
-			$arr_achivement_types[$query->post->post_name] = $query->post->ID;
+			$arr_achievement_types[$query->post->post_name] = $query->post->ID;
 			endwhile;
 		}
 
@@ -170,7 +178,7 @@ class BadgeOS_Community_Members extends BP_Component {
 				$name = is_object( $achievement_object ) ? $achievement_object->labels->name : '';
 				$slug = str_replace( ' ', '-', strtolower( $name ) );
 				// Get post_id of earned achievement type slug
-				$post_id = isset( $arr_achivement_types[$achievement_type] ) ? $arr_achivement_types[$achievement_type] : 0;
+				$post_id = isset( $arr_achievement_types[$achievement_type] ) ? $arr_achievement_types[$achievement_type] : 0;
 				if ( $post_id ) {
 
 					//check if this achievement type can be shown on the member profile page
@@ -184,18 +192,18 @@ class BadgeOS_Community_Members extends BP_Component {
 								'name'                => __( 'Achievements', 'badgeos-community' ),
 								'slug'                => $this->slug,
 								'position'            => 100,
-								'screen_function'     => 'bagdeos_bp_member_achievements',
+								'screen_function'     => 'badgeos_bp_member_achievements',
 								'default_subnav_slug' => $slug
 							);
 							$main = true;
 						}
 
 						$sub_nav[] = array(
-							'name'            => __( $name, 'buddypress' ),
+							'name'            => $name,
 							'slug'            => $slug,
 							'parent_url'      => $parent_url,
 							'parent_slug'     => $this->slug,
-							'screen_function' => 'bagdeos_bp_member_achievements',
+							'screen_function' => 'badgeos_bp_member_achievements',
 							'position'        => 10,
 						);
 
@@ -211,7 +219,7 @@ class BadgeOS_Community_Members extends BP_Component {
 				'name'                => __( 'Achievements', 'badgeos-community' ),
 				'slug'                => $this->slug,
 				'position'            => 100,
-				'screen_function'     => 'bagdeos_bp_member_achievements',
+				'screen_function'     => 'badgeos_bp_member_achievements',
 				'default_subnav_slug' => 'achievements'
 			);
 
@@ -220,7 +228,7 @@ class BadgeOS_Community_Members extends BP_Component {
 				'slug'            => 'achievements',
 				'parent_url'      => $parent_url,
 				'parent_slug'     => $this->slug,
-				'screen_function' => 'bagdeos_bp_member_achievements',
+				'screen_function' => 'badgeos_bp_member_achievements',
 				'position'        => 10,
 			);
 		}

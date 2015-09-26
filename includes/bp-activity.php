@@ -14,7 +14,7 @@
  *
  * @since 1.0.0
  */
-function badgeos_award_achievement_bp_activity( $user_id, $achievement_id ) {
+function badgeos_award_achievement_bp_activity( $user_id, $achievement_id, $this_trigger, $site_id, $args ) {
 
 	if ( ! $user_id || ! $achievement_id )
 		return false;
@@ -43,6 +43,9 @@ function badgeos_award_achievement_bp_activity( $user_id, $achievement_id ) {
 	$content .= '<div class="badgeos-item-description">' . wpautop( $post->post_excerpt ) . '</div>';
 	$content .= '</div>';
 
+	# Bypass checking our activity items from moderation, as we know we are legit.
+	add_filter( 'bp_bypass_check_for_moderation', '__return_true' );
+
 	// Insert the activity
 	bp_activity_add( apply_filters(
 		'badgeos_award_achievement_bp_activity_details',
@@ -63,7 +66,7 @@ function badgeos_award_achievement_bp_activity( $user_id, $achievement_id ) {
 	) );
 
 }
-add_action( 'badgeos_award_achievement', 'badgeos_award_achievement_bp_activity', 10, 2 );
+add_action( 'badgeos_award_achievement', 'badgeos_award_achievement_bp_activity', 10, 5 );
 
 /**
  * Filter activity allowed html tags to allow divs with classes and ids.

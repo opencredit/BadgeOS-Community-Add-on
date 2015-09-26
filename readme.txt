@@ -2,9 +2,9 @@
 Contributors: learningtimes, badgeos, credly, webdevstudios, Messenlehner, rzen, williamsba1, LisaSabinWilson, tw2113
 Donate link: http://badgeos.org/contribute/donate/
 Tags: badge, badges, openbadges, credly, OBI, mozilla, open badges, achievement, award, reward, engagement, submission, nomination, buddypress, community, API, open credit, credit, bbpress, plugin
-Requires at least: WordPress 3.5, BuddyPress 1.7 & BadgeOS 1.2
-Tested up to: 3.9.1
-Stable tag: 1.2.0
+Requires at least: WordPress 3.6.0, BuddyPress 1.7.0 & BadgeOS 1.4.0
+Tested up to: 4.3
+Stable tag: 1.2.2
 License: GNU AGPLv3
 License URI: http://www.gnu.org/licenses/agpl-3.0.html
 
@@ -165,6 +165,20 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 == Changelog ==
 
+= 1.2.2 =
+Fixed: Add groups_join_specific_group triggers for groups that are by request or invite only.
+
+= 1.2.1 =
+* Fixed: Prevent activity list items from being flagged as spam due to too many links.
+* Fixed: Hide frontend profile "Send to Credly" checkbox if Credly integration is disabled.
+* Fixed: Add checks for BuddyPress or bbPress being enabled before able to enable Community Add-on.
+* Fixed: Prevent render issues in Steps UI when BuddyPress isn't activated.
+* Fixed: Renamed bagdeos_bp_member_achievements filter to badgeos_bp_member_achievements to fix typo.
+* Fixed: Textdomain path should now load translations more accurately.
+* Fixed: Changed calls from add_action to add_filter to match hook type.
+* Fixed: Pass in trigger, site ID, and args into earned achievement check.
+* Fixed: Create our own groups_join_specific_group action to allow for awarding of that available trigger.
+
 = 1.2.0 =
 * New: Submission lists can now be filtered by Group ID.
 * New: Added filter badgeos_award_achievement_bp_activity_details for altering the BuddyPress activity stream data before insertion.
@@ -190,6 +204,20 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 
 == Upgrade Notice ==
+
+= 1.2.2 =
+Fixed: Add groups_join_specific_group triggers for groups that are by request or invite only.
+
+= 1.2.1 =
+* Fixed: Prevent activity list items from being flagged as spam due to too many links.
+* Fixed: Hide frontend profile "Send to Credly" checkbox if Credly integration is disabled.
+* Fixed: Add checks for BuddyPress or bbPress being enabled before able to enable Community Add-on.
+* Fixed: Prevent render issues in Steps UI when BuddyPress isn't activated.
+* Fixed: Renamed bagdeos_bp_member_achievements filter to badgeos_bp_member_achievements to fix typo.
+* Fixed: Textdomain path should now load translations more accurately.
+* Fixed: Changed calls from add_action to add_filter to match hook type.
+* Fixed: Pass in trigger, site ID, and args into earned achievement check.
+* Fixed: Create our own groups_join_specific_group action to allow for awarding of that available trigger.
 
 = 1.2.0 =
 * New: Submission lists can now be filtered by Group ID.

@@ -38,14 +38,20 @@ function badgeos_bp_trigger_event( $args = '' ) {
 	// Setup all our important variables
 	global $user_ID, $blog_id, $wpdb;
 
-	if ( empty( $user_ID ) && 'bp_core_activated_user' == current_filter() )
+	if ( empty( $user_ID ) && 'bp_core_activated_user' == current_filter() ) {
 		$user_ID = absint( $args );
+	}
+
+	if ( 'groups_join_specific_group' == current_filter() ) {
+		$user_ID = absint( $args[1] );
+	}
 
 	$user_data = get_user_by( 'id', $user_ID );
 
 	// Sanity check, if we don't have a user object, bail here
-	if ( ! is_object( $user_data ) )
-		return $args[ 0 ];
+	if ( ! is_object( $user_data ) ) {
+		return $args[0];
+	}
 
 	// Grab the current trigger
 	$this_trigger = current_filter();
@@ -67,7 +73,16 @@ function badgeos_bp_trigger_event( $args = '' ) {
 		$this_trigger
 	) );
 	foreach ( $triggered_achievements as $achievement ) {
-		badgeos_maybe_award_achievement_to_user( $achievement->post_id, $user_ID );
+		# Since we are triggering multiple times based on group joining, we need to check if we're on the groups_join_specific_group filter.
+		if ( 'groups_join_specific_group' == current_filter() ) {
+			# We only want to trigger this when we're checking for the appropriate triggered group ID.
+			$group_id = get_post_meta( $achievement->post_id, '_badgeos_group_id', true );
+			if ( $group_id == $args[0] ) {
+				badgeos_maybe_award_achievement_to_user( $achievement->post_id, $user_ID, $this_trigger, $blog_id, $args );
+			}
+		} else {
+			badgeos_maybe_award_achievement_to_user( $achievement->post_id, $user_ID, $this_trigger, $blog_id, $args );
+		}
 	}
 }
 
@@ -104,7 +119,7 @@ function badgeos_bp_user_deserves_community_step( $return, $user_id, $achievemen
 
 	return $return;
 }
-add_action( 'user_deserves_achievement', 'badgeos_bp_user_deserves_community_step', 15, 3 );
+add_filter( 'user_deserves_achievement', 'badgeos_bp_user_deserves_community_step', 15, 3 );
 
 /**
  * Check if user deserves a "join a specific group" step
@@ -136,4 +151,32 @@ function badgeos_bp_user_deserves_group_step( $return, $user_id, $achievement_id
 
 	return $return;
 }
-add_action( 'user_deserves_achievement', 'badgeos_bp_user_deserves_group_step', 15, 3 );
+add_filter( 'user_deserves_achievement', 'badgeos_bp_user_deserves_group_step', 15, 3 );
+
+/**
+ * Fires our group_join_specific_group action for joining public groups.
+ *
+ * @since 1.2.1
+ *
+ * @param int $group_id ID of the public group being joined.
+ * @param int $user_id ID of the user joining the group.
+ */
+function badgeos_bp_do_specific_group( $group_id = 0, $user_id = 0 ) {
+	do_action( 'groups_join_specific_group', array( $group_id, $user_id ) );
+}
+add_action( 'groups_join_group', 'badgeos_bp_do_specific_group', 15, 2 );
+
+/**
+ * Fires our group_join_specific_group action for joining Membership request or Hidden groups.
+ *
+ * @since 1.2.2
+ *
+ * @param int       $user_id  ID of the user joining the group.
+ * @param int       $group_id ID of the group being joined.
+ * @param bool|true $accepted Whether or not the membership was accepted. Default true.
+ */
+function badgeos_bp_do_specific_group_requested_invited( $user_id = 0, $group_id = 0, $accepted = true ) {
+    do_action( 'groups_join_specific_group', array( $group_id, $user_id ) );
+}
+add_action( 'groups_membership_accepted', 'badgeos_bp_do_specific_group_requested_invited', 15, 3 );
+add_action( 'groups_accept_invite', 'badgeos_bp_do_specific_group_requested_invited', 15, 3 );
