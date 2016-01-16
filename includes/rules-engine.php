@@ -47,6 +47,8 @@ function badgeos_bp_trigger_event( $args = '' ) {
 		$user_id = absint( $args[1] );
 	}
 
+	$user_id = apply_filters( 'badgeos_bp_trigger_event_user_id', $user_id, current_filter(), $args );
+
 	$user_data = get_user_by( 'id', $user_id );
 
 	// Sanity check, if we don't have a user object, bail here
