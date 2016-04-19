@@ -16,37 +16,38 @@
  */
 function badgeos_award_achievement_bp_activity( $user_id, $achievement_id, $this_trigger, $site_id, $args ) {
 
-	if ( ! $user_id || ! $achievement_id )
+	if ( ! $user_id || ! $achievement_id ) {
 		return false;
+	}
 
 	$post = get_post( $achievement_id );
 	$type = $post->post_type;
 
-	// Don't make activity posts for step post type
+	// Don't make activity posts for step post type.
 	if ( 'step' == $type ) {
 		return false;
 	}
 
-	// Check if option is on/off
+	// Check if option is on/off.
 	$achievement_type = get_page_by_title( str_replace('-',' ', $type), 'OBJECT', 'achievement-type' );
 	$can_bp_activity = get_post_meta( $achievement_type->ID, '_badgeos_create_bp_activty', true );
 	if ( ! $can_bp_activity ) {
 		return false;
 	}
 
-	// Grab the singular name for our achievement type
+	// Grab the singular name for our achievement type.
 	$post_type_singular_name = strtolower( get_post_type_object( $type )->labels->singular_name );
 
-	// Setup our entry content
+	// Setup our entry content.
 	$content = '<div class="badgeos-achievements-list-item user-has-earned">';
 	$content .= '<div class="badgeos-item-image"><a href="'. get_permalink( $achievement_id ) . '">' . badgeos_get_achievement_post_thumbnail( $achievement_id ) . '</a></div>';
 	$content .= '<div class="badgeos-item-description">' . wpautop( $post->post_excerpt ) . '</div>';
 	$content .= '</div>';
 
-	# Bypass checking our activity items from moderation, as we know we are legit.
+	// Bypass checking our activity items from moderation, as we know we are legit.
 	add_filter( 'bp_bypass_check_for_moderation', '__return_true' );
 
-	// Insert the activity
+	// Insert the activity.
 	bp_activity_add( apply_filters(
 		'badgeos_award_achievement_bp_activity_details',
 		array(
@@ -72,6 +73,9 @@ add_action( 'badgeos_award_achievement', 'badgeos_award_achievement_bp_activity'
  * Filter activity allowed html tags to allow divs with classes and ids.
  *
  * @since 1.0.0
+ *
+ * @param array $activity_allowedtags Array of allowed tags.
+ * @return array
  */
 function badgeos_bp_activity_allowed_tags( $activity_allowedtags ) {
 
@@ -85,26 +89,29 @@ add_filter( 'bp_activity_allowed_tags', 'badgeos_bp_activity_allowed_tags' );
 
 
 /**
- * Adds meta box to achievement types for turning on/off BuddyPress activity posts when a user earns an achievement
+ * Adds meta box to achievement types for turning on/off BuddyPress activity posts when a user earns an achievement.
  *
  * @since 1.0.0
+ *
+ * @param array $meta_boxes Array of metaboxes.
+ * @return array
  */
 function badgeos_bp_custom_metaboxes( array $meta_boxes ) {
 
-	// Start with an underscore to hide fields from custom fields list
+	// Start with an underscore to hide fields from custom fields list.
 	$prefix = '_badgeos_';
 
-	// Setup our $post_id, if available
+	// Setup our $post_id, if available.
 	$post_id = isset( $_GET['post'] ) ? $_GET['post'] : 0;
 
-	// New Achievement Types
+	// New Achievement Types.
 	$meta_boxes[] = array(
 		'id'         => 'bp_achievement_type_data',
 		'title'      => __( 'BuddyPress Member Activity', 'badgeos-community' ),
-		'pages'      => array( 'achievement-type' ), // Post type
+		'pages'      => array( 'achievement-type' ), // Post type.
 		'context'    => 'normal',
 		'priority'   => 'high',
-		'show_names' => true, // Show field names on the left
+		'show_names' => true, // Show field names on the left.
 		'fields'     => array(
 			array(
 				'name' => __( 'Activity Posts', 'badgeos-community' ),

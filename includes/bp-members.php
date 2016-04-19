@@ -27,7 +27,7 @@ function badgeos_bp_member_achievements() {
 function badgeos_bp_member_achievements_content() {
 
 	$achievement_types = badgeos_get_network_achievement_types_for_user( bp_displayed_user_id() );
-	// Eliminate step cpt from array
+	// Eliminate step cpt from array.
 	if ( ( $key = array_search( 'step', $achievement_types ) ) !== false ) {
 		unset( $achievement_types[$key] );
 		$achievement_types = array_values( $achievement_types );
@@ -67,8 +67,9 @@ function badgeos_bp_member_achievements_content() {
 function badgeos_community_loader() {
 	$bp = buddypress();
 	$hasbp = function_exists( 'buddypress' ) && buddypress() && ! buddypress()->maintenance_mode && bp_is_active( 'xprofile' );
-	if ( !$hasbp )
+	if ( ! $hasbp ) {
 		return;
+	}
 
 	$GLOBALS['badgeos_community_members'] = new BadgeOS_Community_Members();
 
@@ -113,7 +114,7 @@ add_action( 'bp_core_general_settings_after_save', 'badgeos_bp_core_general_sett
 
 
 /**
- * Build BP_Component extension object
+ * Build BP_Component extension object.
  *
  * @since 1.0.0
  */
@@ -128,7 +129,7 @@ class BadgeOS_Community_Members extends BP_Component {
 
 	}
 
-	// Globals
+	// Globals.
 	public function setup_globals( $args = '' ) {
 		parent::setup_globals( array(
 				'has_directory' => true,
@@ -137,7 +138,7 @@ class BadgeOS_Community_Members extends BP_Component {
 			) );
 	}
 
-	// BuddyPress actions
+	// BuddyPress actions.
 	public function setup_actions() {
 		parent::setup_actions();
 	}
@@ -149,17 +150,18 @@ class BadgeOS_Community_Members extends BP_Component {
 	 */
 	public function setup_nav( $main_nav = '', $sub_nav = '' ) {
 
-		if ( ! is_user_logged_in() && ! bp_displayed_user_id() )
+		if ( ! is_user_logged_in() && ! bp_displayed_user_id() ) {
 			return;
+		}
 
 		$parent_url = trailingslashit( bp_displayed_user_domain() . $this->slug );
 
 		// Loop existing achievement types to build array of array( 'slug' => 'ID' )
-		// @TODO: update global $badgeos->achievement_types to include the post_id of each slug
-		$args=array(
+		// @TODO: update global $badgeos->achievement_types to include the post_id of each slug.
+		$args = array(
 			'post_type'      => 'achievement-type',
 			'post_status'    => 'publish',
-			'posts_per_page' => -1
+			'posts_per_page' => -1,
 		);
 		$query = new WP_Query( $args );
 		if ( $query->have_posts() ) {
@@ -170,30 +172,30 @@ class BadgeOS_Community_Members extends BP_Component {
 
 		$achievement_types = badgeos_get_network_achievement_types_for_user( bp_displayed_user_id() );
 
-		if ( !empty( $achievement_types ) ) {
-			// Loop achievement types current user has earned
+		if ( ! empty( $achievement_types ) ) {
+			// Loop achievement types current user has earned.
 			foreach ( $achievement_types as $achievement_type ) {
 
 				$achievement_object = get_post_type_object( $achievement_type );
 				$name = is_object( $achievement_object ) ? $achievement_object->labels->name : '';
 				$slug = str_replace( ' ', '-', strtolower( $name ) );
-				// Get post_id of earned achievement type slug
+				// Get post_id of earned achievement type slug.
 				$post_id = isset( $arr_achievement_types[$achievement_type] ) ? $arr_achievement_types[$achievement_type] : 0;
 				if ( $post_id ) {
 
-					//check if this achievement type can be shown on the member profile page
+					// Check if this achievement type can be shown on the member profile page.
 					$can_bp_member_menu = get_post_meta( $post_id, '_badgeos_show_bp_member_menu', true );
 					if ( $slug && $can_bp_member_menu ) {
 
-						// Only run once to set main nav and default sub nav
+						// Only run once to set main nav and defautl sub nav.
 						if ( empty( $main ) ) {
-							// Add to the main navigation
+							// Add to the main navigation.
 							$main_nav = array(
 								'name'                => __( 'Achievements', 'badgeos-community' ),
 								'slug'                => $this->slug,
 								'position'            => 100,
 								'screen_function'     => 'badgeos_bp_member_achievements',
-								'default_subnav_slug' => $slug
+								'default_subnav_slug' => $slug,
 							);
 							$main = true;
 						}
@@ -214,13 +216,13 @@ class BadgeOS_Community_Members extends BP_Component {
 			}
 		}
 		else {
-			// Add to the main navigation
+			// Add to the main navigation.
 			$main_nav = array(
 				'name'                => __( 'Achievements', 'badgeos-community' ),
 				'slug'                => $this->slug,
 				'position'            => 100,
 				'screen_function'     => 'badgeos_bp_member_achievements',
-				'default_subnav_slug' => 'achievements'
+				'default_subnav_slug' => 'achievements',
 			);
 
 			$sub_nav[] = array(
@@ -235,16 +237,15 @@ class BadgeOS_Community_Members extends BP_Component {
 
 		parent::setup_nav( $main_nav, $sub_nav );
 	}
-
 }
 
 /**
  * Override the achievement earners list to use BP details
  *
  * @since  1.0.0
- * @param string  $user_content The list item output for the given user
- * @param integer $user_id      The given user's ID
- * @return string               The updated user output
+ * @param string  $user_content The list item output for the given user.
+ * @param integer $user_id      The given user's ID.
+ * @return string               The updated user output.
  */
 function badgeos_bp_achievement_earner( $user_content, $user_id ) {
 	$user = new BP_Core_User( $user_id );
