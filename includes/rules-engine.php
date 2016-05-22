@@ -36,20 +36,17 @@ add_action( 'init', 'badgeos_bp_load_community_triggers' );
  */
 function badgeos_bp_trigger_event( $args = '' ) {
 	// Setup all our important variables
-	global $blog_id, $wpdb;
-	$user_id = get_current_user_id();
+	global $user_ID, $blog_id, $wpdb;
 
-	if ( empty( $user_id ) && 'bp_core_activated_user' == current_filter() ) {
-		$user_id = absint( $args );
+	if ( empty( $user_ID ) && 'bp_core_activated_user' == current_filter() ) {
+		$user_ID = absint( $args );
 	}
 
 	if ( 'groups_join_specific_group' == current_filter() ) {
-		$user_id = absint( $args[1] );
+		$user_ID = absint( $args[1] );
 	}
 
-	$user_id = apply_filters( 'badgeos_bp_trigger_event_user_id', $user_id, current_filter(), $args );
-
-	$user_data = get_user_by( 'id', $user_id );
+	$user_data = get_user_by( 'id', $user_ID );
 
 	// Sanity check, if we don't have a user object, bail here
 	if ( ! is_object( $user_data ) ) {
@@ -60,10 +57,10 @@ function badgeos_bp_trigger_event( $args = '' ) {
 	$this_trigger = current_filter();
 
 	// Update hook count for this user
-	$new_count = badgeos_update_user_trigger_count( $user_id, $this_trigger, $blog_id );
+	$new_count = badgeos_update_user_trigger_count( $user_ID, $this_trigger, $blog_id );
 
 	// Mark the count in the log entry
-	badgeos_post_log_entry( null, $user_id, null, sprintf( __( '%1$s triggered %2$s (%3$dx)', 'badgeos-community' ), $user_data->user_login, $this_trigger, $new_count ) );
+	badgeos_post_log_entry( null, $user_ID, null, sprintf( __( '%1$s triggered %2$s (%3$dx)', 'badgeos-community' ), $user_data->user_login, $this_trigger, $new_count ) );
 
 	// Now determine if any badges are earned based on this trigger event
 	$triggered_achievements = $wpdb->get_results( $wpdb->prepare(
@@ -81,11 +78,11 @@ function badgeos_bp_trigger_event( $args = '' ) {
 			# We only want to trigger this when we're checking for the appropriate triggered group ID.
 			$group_id = get_post_meta( $achievement->post_id, '_badgeos_group_id', true );
 			if ( $group_id == $args[0] ) {
-				badgeos_maybe_award_achievement_to_user( $achievement->post_id, $user_id, $this_trigger, $blog_id, $args );
-			}
+		badgeos_maybe_award_achievement_to_user( $achievement->post_id, $user_ID, $this_trigger, $blog_id, $args );
+	}
 		} else {
-			badgeos_maybe_award_achievement_to_user( $achievement->post_id, $user_id, $this_trigger, $blog_id, $args );
-		}
+			badgeos_maybe_award_achievement_to_user( $achievement->post_id, $user_ID, $this_trigger, $blog_id, $args );
+}
 	}
 }
 
