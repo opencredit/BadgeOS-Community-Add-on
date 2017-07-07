@@ -9,6 +9,36 @@
  * @link https://credly.com
  */
 
+
+function badgeos_register_activity_actions() {
+    $component_id = 'badgeos';
+
+    bp_activity_set_action(
+        $component_id,
+        'activity_update',
+        __( 'User earned an achievement', 'badgeos-community' ),
+        'badgeos_format_activity_action',
+        __( 'User earned an achievement', 'badgeos-community' ),
+        array( 'activity', 'member' )
+    );
+}
+add_action( 'bp_register_activity_actions', 'badgeos_register_activity_actions' );
+
+
+function badgeos_format_activity_action ( $action, $activity ) {
+
+	$achievement_id = $activity->item_id;
+	$post = get_post( $achievement_id );
+	$type = $post->post_type;
+
+	// Grab the singular name for our achievement type
+	$post_type_singular_name = strtolower( get_post_type_object( $type )->labels->singular_name );
+
+	$action = sprintf( __( '%1$s earned the %2$s: %3$s', 'badgeos-community' ), bp_core_get_userlink( $activity->user_id ), $post_type_singular_name, '<a href="' . get_permalink( $achievement_id ) . '">' . $post->post_title . '</a>' );
+
+	return apply_filters( 'badgeos_format_activity_action', $action, $activity );
+}
+
 /**
  * Create BuddyPress Activity when a user earns an achievement.
  *
