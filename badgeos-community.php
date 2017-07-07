@@ -36,13 +36,11 @@ class BadgeOS_Community {
 		$this->directory_path = plugin_dir_path( __FILE__ );
 		$this->directory_url  = plugins_url( 'badgeos-community/' );
 
-		// Load translations
-		load_plugin_textdomain( 'badgeos-community', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-
 		// Run our activation
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
 
 		// If BadgeOS is unavailable, deactivate our plugin
+		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		add_action( 'admin_notices', array( $this, 'maybe_disable_plugin' ) );
 		add_action( 'plugins_loaded', array( $this, 'includes' ) );
 		add_action( 'bp_include', array( $this, 'bp_include' ) );
@@ -77,6 +75,14 @@ class BadgeOS_Community {
 				'bbp_new_reply'                    => __( 'Reply to a Forum Topic', 'badgeos-community' ),
 			)
 		);
+	}
+
+	/**
+	 * Load translations.
+	 */
+	function load_textdomain() {
+		// Load translations
+		load_plugin_textdomain( 'badgeos-community', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
 	/**
