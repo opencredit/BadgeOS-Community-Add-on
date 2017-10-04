@@ -143,7 +143,7 @@ class BadgeOS_Community_Members extends BP_Component {
 	}
 
 	// Member Profile Menu
-	public function setup_nav( $main_nav = '', $sub_nav = '' ) {
+	public function setup_nav( $main_nav = array(), $sub_nav = array() ) {
 
 		if ( ! is_user_logged_in() && ! bp_displayed_user_id() )
 			return;
