@@ -21,6 +21,7 @@ function badgeos_bp_step_requirements( $requirements, $step_id ) {
 	// Add our new requirements to the list
 	$requirements['community_trigger'] = get_post_meta( $step_id, '_badgeos_community_trigger', true );
 	$requirements['group_id'] = get_post_meta( $step_id, '_badgeos_group_id', true );
+	$requirements['forum_id'] = get_post_meta( $step_id, '_badgeos_forum_id', true );
 
 	// Return the requirements array
 	return $requirements;
@@ -100,6 +101,70 @@ function badgeos_bp_step_group_select( $step_id, $post_id ) {
 add_action( 'badgeos_steps_ui_html_after_trigger_type', 'badgeos_bp_step_group_select', 10, 2 );
 
 /**
+ * Add a BBPress Forum selector to the Steps UI
+ *
+ * @param integer $step_id The given step's post ID
+ * @param integer $post_id The given parent post's post ID
+ */
+function badgeos_bp_step_forum_select( $step_id, $post_id ) {
+
+	// Setup our select input
+	echo '<select name="forum_id" class="select-forum-id select-forum-id-' . $post_id . '">';
+	echo '<option value="">' . __( 'Select a Forum', 'badgeos-community' ) . '</option>';
+
+	// Loop through all existing BP groups and include them here
+	if ( function_exists( 'bbp_get_public_status_id' ) ) {
+		$current_selection = get_post_meta( $step_id, '_badgeos_forum_id', true );
+		// Setup possible post__not_in array 
+		$post_stati[] = bbp_get_public_status_id(); 
+
+		// Super admin get whitelisted post statuses 
+		if ( bbp_is_user_keymaster() ) { 
+			$post_stati = array( bbp_get_public_status_id(), bbp_get_private_status_id(), bbp_get_hidden_status_id() ); 
+
+		// Not a keymaster, so check caps 
+		} else { 
+
+			// Check if user can read private forums 
+			if ( current_user_can( 'read_private_forums' ) ) { 
+				$post_stati[] = bbp_get_private_status_id(); 
+			} 
+
+			// Check if user can read hidden forums 
+			if ( current_user_can( 'read_hidden_forums' ) ) { 
+				$post_stati[] = bbp_get_hidden_status_id(); 
+			} 
+		} 
+
+		// Parse arguments against default values 
+		$r = bbp_parse_args( $args, array( 
+				'post_parent' => 0,  
+				'post_type' => bbp_get_forum_post_type(),  
+				'post_status' => implode( ', ', $post_stati ),  
+				'posts_per_page' => -1,  
+				'orderby' => 'menu_order title',  
+				'order' => 'ASC',  
+				'ignore_sticky_posts' => true,  
+				'no_found_rows' => true,
+		 ), 'badgeos_forums_args' ); 
+
+		// Create a new query for the subforums 
+		$get_posts = new WP_Query(); 
+
+		// No forum passed 
+		$bbp_forums = $get_posts->query( $r );
+		if ( !empty( $bbp_forums ) ) {
+			foreach ( $bbp_forums as $forum ) {
+				echo '<option' . selected( $current_selection, $forum->ID, false ) . ' value="' . $forum->ID . '">' . $forum->post_title . '</option>';
+			}
+		}
+	}
+	echo '</select>';
+
+}
+add_action( 'badgeos_steps_ui_html_after_trigger_type', 'badgeos_bp_step_forum_select', 10, 2 );
+
+/**
  * AJAX Handler for saving all steps
  *
  * @since  1.0.0
@@ -127,6 +192,16 @@ function badgeos_bp_save_step( $title, $step_id, $step_data ) {
 
 			// Pass along our custom post title
 			$title = sprintf( __( 'Join group "%s"', 'badgeos-community' ), bp_get_group_name( groups_get_group( array( 'group_id' => $step_data['group_id'] ) ) ) );
+		}
+		
+		// If trigger is replyign to specific forum...
+		if ( 'bbp_new_reply_specific_forum' == $step_data['community_trigger'] ) {
+
+			// Store our group ID in meta
+			update_post_meta( $step_id, '_badgeos_forum_id', $step_data['forum_id'] );
+
+			// Pass along our custom post title
+			$title = sprintf( __( 'Reply to forum "%s"', 'badgeos-community' ), get_the_title( $step_data['forum_id'] ) );
 		}
 	}
 
@@ -166,8 +241,12 @@ function badgeos_bp_step_js() { ?>
 			// Show our group selector if we're awarding based on a specific group
 			if ( 'groups_join_specific_group' == trigger_type.val() ) {
 				trigger_type.siblings('.select-group-id').show();
+			// Show our forum selector if we're awarding based on a specific forum
+			} else if ( 'bbp_new_reply_specific_forum' == trigger_type.val() ) {
+				trigger_type.siblings('.select-forum-id').show();
 			} else {
 				trigger_type.siblings('.select-group-id').hide();
+				trigger_type.siblings('.select-forum-id').hide();
 			}
 
 		});
@@ -180,6 +259,7 @@ function badgeos_bp_step_js() { ?>
 			step_details.community_trigger = $('.select-community-trigger', step).val();
 			step_details.community_trigger_label = $('.select-community-trigger option', step).filter(':selected').text();
 			step_details.group_id = $('.select-group-id', step).val();
+			step_details.forum_id = $('.select-forum-id', step).val();
 		});
 
 	});

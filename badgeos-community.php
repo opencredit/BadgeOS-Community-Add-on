@@ -49,7 +49,7 @@ class BadgeOS_Community {
 		add_action( 'wp_print_scripts', array( $this, 'enqueue_scripts' ) );
 
 		// BuddyPress Action Hooks
-		$this->community_triggers = array(
+		$community_triggers = array(
 			__( 'Profile/Independent Actions', 'badgeos-community' ) => array(
 				'bp_core_activated_user'           => __( 'Activated Account', 'badgeos-community' ),
 				'xprofile_avatar_uploaded'         => __( 'Change Profile Avatar', 'badgeos-community' ),
@@ -75,8 +75,10 @@ class BadgeOS_Community {
 			__( 'Discussion Forum Actions', 'badgeos-community' ) => array(
 				'bbp_new_topic'                    => __( 'Create a Forum Topic', 'badgeos-community' ),
 				'bbp_new_reply'                    => __( 'Reply to a Forum Topic', 'badgeos-community' ),
+				'bbp_new_reply_specific_forum'     => __( 'Reply to a Specific Forum', 'badgeos-community' ),
 			)
 		);
+		$this->community_triggers = aapply_filters( 'badgeos_community_add_on_triggers', $community_triggers );
 	}
 
 	/**
