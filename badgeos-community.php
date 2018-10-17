@@ -75,6 +75,7 @@ class BadgeOS_Community {
 			__( 'Discussion Forum Actions', 'badgeos-community' ) => array(
 				'bbp_new_topic'                    => __( 'Create a Forum Topic', 'badgeos-community' ),
 				'bbp_new_reply'                    => __( 'Reply to a Forum Topic', 'badgeos-community' ),
+				'bbp_new_reply_specific_forum'     => __( 'Reply to a Specific Forum', 'badgeos-community' ),
 			)
 		);
 		$this->community_triggers = aapply_filters( 'badgeos_community_add_on_triggers', $community_triggers );
