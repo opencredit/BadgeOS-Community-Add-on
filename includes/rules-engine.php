@@ -180,3 +180,88 @@ function badgeos_bp_do_specific_group_requested_invited( $user_id = 0, $group_id
 }
 add_action( 'groups_membership_accepted', 'badgeos_bp_do_specific_group_requested_invited', 15, 3 );
 add_action( 'groups_accept_invite', 'badgeos_bp_do_specific_group_requested_invited', 15, 3 );
+
+/**
+ * Check if user deserves a "create a new topic in specific forum" step
+ *
+ * @since  1.0.0
+ * @param  bool    $return         Whether or not the user deserves the step
+ * @param  integer $user_id        The given user's ID
+ * @param  integer $achievement_id The given achievement's post ID
+ * @return bool                    True if the user deserves the step, false otherwise
+ */
+function badgeos_bp_user_deserves_topic_step( $return, $user_id, $achievement_id ) {
+
+	// If we're not dealing with a step, bail here
+	if ( 'step' != get_post_type( $achievement_id ) )
+		return $return;
+
+	// Grab our step requirements
+	$requirements = badgeos_get_step_requirements( $achievement_id );
+
+	// If the step is triggered by creating a new topic to the forum
+	if ( 'bbp_new_topic_specific_forum' == $requirements['community_trigger'] ) {
+		// Return false unless any one of the topic is in the selected forum
+		$return = badgeos_bp_has_created_topic_in_forum_with_id($requirements['forum_id']);
+	}
+	return $return;
+}
+add_filter( 'user_deserves_achievement', 'badgeos_bp_user_deserves_topic_step', 15, 3 );
+
+/**
+ * Fires our bbp_new_topic_specific_forum action for creating new topics.
+ * $topic_id, $forum_id, $anonymous_data, $topic_author
+ *
+ * @since 1.2.1
+ *
+ * @param int $group_id ID of the public group being joined.
+ * @param int $user_id ID of the user joining the group.
+ */
+function badgeos_bp_do_specific_bbp_new_topic( $topic_id = 0 ) {
+	do_action( 'bbp_new_topic_specific_forum', array( $topic_id ) );
+}
+add_action( 'bbp_new_topic_post_extras', 'badgeos_bp_do_specific_bbp_new_topic', 15, 2 );
+
+/**
+ * Return True if the user has created at least one topic in a given forum
+ * @param  [type]  $forum_id The Parent Forum to check
+ * @param  [type]  $user_id  user id is optional defaults to current user id
+ * @return boolean           [description]
+ */
+ function badgeos_bp_has_created_topic_in_forum_with_id($forum_id, $user_id = null) {
+  if ($user_id == null) $user_id = get_current_user_id();
+  // Setup our arguments
+  $args = array(
+    'post_type'                => bbp_get_topic_post_type(),
+    'author'                   => $user_id,
+    'post_parent'              => $forum_id,
+    'fields'                   => 'ids',
+    'posts_per_page'           => 1,
+    'post_status'              => bbp_get_public_status_id()
+  );
+  // Check
+  if (sizeof(get_posts($args)) == 1) return true;
+  return false;
+}
+
+/**
+ * Return True if the user has created at least one reply in a given topic
+ * @param  [type]  $topic_id The Parent Topic to check
+ * @param  [type]  $user_id  user id is optional defaults to current user id
+ * @return boolean           [description]
+ */
+ function badgeos_bp_has_created_reply_in_topic_with_id($topic_id, $user_id = null) {
+  if ($user_id == null) $user_id = get_current_user_id();
+  // Setup our arguments
+  $args = array(
+    'post_type'                => bbp_get_reply_post_type(),
+    'author'                   => $user_id,
+    'post_parent'              => $topic_id,
+    'fields'                   => 'ids',
+    'posts_per_page'           => 1,
+    'post_status'              => bbp_get_public_status_id()
+  );
+  // Check
+  if (sizeof(get_posts($args)) == 1) return true;
+  return false;
+}

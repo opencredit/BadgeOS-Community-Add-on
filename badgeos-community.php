@@ -75,6 +75,7 @@ class BadgeOS_Community {
 			__( 'Discussion Forum Actions', 'badgeos-community' ) => array(
 				'bbp_new_topic'                    => __( 'Create a Forum Topic', 'badgeos-community' ),
 				'bbp_new_reply'                    => __( 'Reply to a Forum Topic', 'badgeos-community' ),
+				'bbp_new_topic_specific_forum'                    => __( 'Create a Topic in a Specific Forum', 'badgeos-community' )
 			)
 		);
 	}
