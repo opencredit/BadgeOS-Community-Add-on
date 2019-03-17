@@ -21,6 +21,7 @@ function badgeos_bp_step_requirements( $requirements, $step_id ) {
 	// Add our new requirements to the list
 	$requirements['community_trigger'] = get_post_meta( $step_id, '_badgeos_community_trigger', true );
 	$requirements['group_id'] = get_post_meta( $step_id, '_badgeos_group_id', true );
+	$requirements['forum_id'] = get_post_meta( $step_id, '_badgeos_forum_id', true );
 
 	// Return the requirements array
 	return $requirements;
@@ -100,6 +101,35 @@ function badgeos_bp_step_group_select( $step_id, $post_id ) {
 add_action( 'badgeos_steps_ui_html_after_trigger_type', 'badgeos_bp_step_group_select', 10, 2 );
 
 /**
+ * Add a BBPress Forum selector to the Steps UI
+ *
+ * @since 1.0.0
+ * @param integer $step_id The given step's post ID
+ * @param integer $post_id The given parent post's post ID
+ */
+function badgeos_bp_step_forum_select( $step_id, $post_id ) {
+
+	// Setup our select input
+	echo '<select name="forum_id" class="select-forum-id select-forum-id-' . $post_id . '">';
+	echo '<option value="">' . __( 'Select a Forum', 'badgeos-community' ) . '</option>';
+
+	// Loop through all existing BP groups and include them here
+	if ( function_exists( 'bbp_get_forum_post_type' ) ) {
+		$current_selection = get_post_meta( $step_id, '_badgeos_forum_id', true );
+		$forums = get_pages( array( 'post_type' => bbp_get_forum_post_type(), 'numberposts' => -1,
+'post_status' => array('publish', 'private')) );
+		if ( !empty( $forums ) ) {
+			foreach ( $forums as $forum ) {
+				echo '<option' . selected( $current_selection, $forum->ID, false ) . ' value="' . $forum->ID . '">' . $forum->post_title . '</option>';
+			}
+		}
+	}
+	echo '</select>';
+
+}
+add_action( 'badgeos_steps_ui_html_after_trigger_type', 'badgeos_bp_step_forum_select', 10, 2 );
+
+/**
  * AJAX Handler for saving all steps
  *
  * @since  1.0.0
@@ -127,6 +157,16 @@ function badgeos_bp_save_step( $title, $step_id, $step_data ) {
 
 			// Pass along our custom post title
 			$title = sprintf( __( 'Join group "%s"', 'badgeos-community' ), bp_get_group_name( groups_get_group( array( 'group_id' => $step_data['group_id'] ) ) ) );
+		}
+
+		// If we're looking to create topic in specific forum...
+		if ( 'bbp_new_topic_specific_forum' == $step_data['community_trigger'] && function_exists( 'bbp_get_user_topics_started' ) ) {
+
+			// Store our group ID in meta
+			update_post_meta( $step_id, '_badgeos_forum_id', $step_data['forum_id'] );
+
+			// Pass along our custom post title
+			$title = sprintf( __( 'Create topic in forum "%s"', 'badgeos-community' ), bp_get_group_name( groups_get_group( array( 'forum_id' => $step_data['forum_id'] ) ) ) );
 		}
 	}
 
@@ -170,6 +210,13 @@ function badgeos_bp_step_js() { ?>
 				trigger_type.siblings('.select-group-id').hide();
 			}
 
+			// Show our group selector if we're awarding based on a specific group
+			if ( 'bbp_new_topic_specific_forum' == trigger_type.val() ) {
+				trigger_type.siblings('.select-forum-id').show();
+			} else {
+				trigger_type.siblings('.select-forum-id').hide();
+			}
+
 		});
 
 		// Trigger a change so we properly show/hide our community menues
@@ -180,6 +227,7 @@ function badgeos_bp_step_js() { ?>
 			step_details.community_trigger = $('.select-community-trigger', step).val();
 			step_details.community_trigger_label = $('.select-community-trigger option', step).filter(':selected').text();
 			step_details.group_id = $('.select-group-id', step).val();
+			step_details.forum_id = $('.select-forum-id', step).val();
 		});
 
 	});
